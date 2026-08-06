@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Admin — Suggest a Mod</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght,ROND@6..144,100..700,100&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
+
+<link rel="stylesheet" href="../base.css" />
+<link rel="stylesheet" href="../suggest.css" />
+<link rel="stylesheet" href="./admin.css" />
+</head>
+<body>
+
+<div class="suggest-app">
+
+  <header class="suggest-header">
+    <div class="suggest-header__titles">
+      <h1 class="page-title">Mod Suggestions — Admin</h1>
+      <p class="suggest-header__subtitle">Manage suggestions, thresholds, and moderation.</p>
+    </div>
+    <div class="suggest-header__actions">
+      <button class="icon-button" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <span class="material-symbols-rounded" id="theme-icon">dark_mode</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Token gate: shown until a valid admin token is entered -->
+  <section id="login-gate" class="admin-gate">
+    <div class="admin-gate__card">
+      <span class="material-symbols-rounded admin-gate__icon">lock</span>
+      <h2>Admin Access</h2>
+      <p>Enter the admin token to continue.</p>
+      <input type="password" id="admin-token-input" placeholder="Admin token" />
+      <button id="admin-login-btn" class="admin-button">Unlock</button>
+      <p id="admin-login-error" class="admin-error" style="display:none;">Incorrect token.</p>
+    </div>
+  </section>
+
+  <!-- Everything below is hidden until authenticated -->
+  <div id="admin-content" style="display:none;">
+
+    <section class="admin-settings">
+      <div class="admin-settings__row">
+        <div>
+          <h3>Auto-add threshold</h3>
+          <p class="suggest-header__subtitle">Net upvotes needed before a mod is automatically marked "Added".</p>
+        </div>
+        <div class="admin-settings__control">
+          <input type="number" id="threshold-input" min="1" style="width:80px;" />
+          <button id="threshold-save-btn" class="admin-button admin-button--small">Save</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="admin-settings">
+      <div class="admin-settings__row">
+        <div>
+          <h3>Existing mods (duplicate check)</h3>
+          <p class="suggest-header__subtitle" id="existing-mods-count">Loading…</p>
+        </div>
+        <div class="admin-settings__control">
+          <button id="sync-mods-btn" class="admin-button admin-button--small">Sync from Modrinth</button>
+        </div>
+      </div>
+      <p class="suggest-header__subtitle" style="margin-top:12px;">
+        Fetches the latest .mrpack from the modpack's Modrinth project automatically and updates
+        the duplicate-check list. Run this any time the modpack changes.
+      </p>
+      <details style="margin-top:10px;">
+        <summary style="cursor:pointer; font-size:13px; color:var(--md-sys-color-on-surface-variant);">Manual sync (paste project IDs instead)</summary>
+        <p class="suggest-header__subtitle" style="margin-top:8px;">
+          Only needed if the automatic fetch above can't be used. Paste Modrinth project IDs
+          (JSON array or one per line).
+        </p>
+        <textarea id="sync-mods-input" rows="4" style="width:100%; margin-top:8px; border-radius:12px; padding:10px; background:var(--md-sys-color-surface-container-high); color:var(--md-sys-color-on-surface); border:1px solid var(--md-sys-color-outline-variant); font-family:monospace; font-size:12px;"></textarea>
+        <button id="sync-mods-manual-btn" class="admin-button admin-button--small" style="margin-top:8px;">Sync pasted IDs</button>
+      </details>
+    </section>
+
+    <section class="suggest-list-section">
+      <div class="suggest-list-section__head">
+        <h2 class="suggest-list-section__title">All Suggestions</h2>
+        <div class="suggest-list-section__filters" id="admin-filters">
+          <button class="chip chip--active" data-filter="all">All</button>
+          <button class="chip" data-filter="pending">Pending</button>
+          <button class="chip" data-filter="added">Added</button>
+        </div>
+      </div>
+      <div id="admin-list" class="suggestions-list">
+        <p class="suggest-empty">Loading…</p>
+      </div>
+    </section>
+
+  </div>
+
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script src="./admin.js"></script>
+</body>
+</html>

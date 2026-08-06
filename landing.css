@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+/* Each background layer is a full-screen blurred/darkened image.
+   They're stacked on top of each other and crossfade via opacity. */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px) brightness(0.55);
+  transform: scale(1.08); /* avoid blurred edge showing at viewport edges */
+  transition: opacity 0.6s ease;
+  z-index: 0;
+}
+
+/* If you use .png instead of .jpg, change the extensions below to match. */
+.bg-default { background-image: url("backgrounds/default.jpg"); opacity: 1; }
+.bg-season1 { background-image: url("backgrounds/season1-sepia.jpg"); opacity: 0; }
+.bg-season2 { background-image: url("backgrounds/season2.jpg"); opacity: 0; }
+
+.bg-default.active { opacity: 1; }
+.bg-season1.active { opacity: 1; }
+.bg-season2.active { opacity: 1; }
+
+/* Extra dark scrim on top for text legibility, independent of brightness filter */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 48px;
+  color: #ffffff;
+  text-align: center;
+  padding: 24px;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 800;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+.seasons {
+  display: flex;
+  gap: clamp(32px, 10vw, 96px);
+}
+
+.season {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.badge {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.season:hover .badge,
+.season:focus-visible .badge {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.label {
+  font-size: 1.1rem;
+  font-weight: 500;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.suggest-link {
+  color: #ffffff;
+  opacity: 0.85;
+  font-size: 0.95rem;
+  text-decoration: none;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.suggest-link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}

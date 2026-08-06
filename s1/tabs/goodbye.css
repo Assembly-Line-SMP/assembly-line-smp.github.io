@@ -1,0 +1,91 @@
+.goodbye {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.goodbye__card {
+  max-width: 480px;
+  width: 100%;
+  background: var(--md-sys-color-surface-container-lowest);
+  border-radius: var(--md-corner-extra-large);
+  padding: 40px 32px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.goodbye__title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 26px;
+  margin: 0;
+  color: var(--md-sys-color-on-surface);
+}
+
+.goodbye__subtitle {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 16px;
+  margin: 0;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.goodbye__body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--md-sys-color-on-surface-variant);
+  margin: 8px 0 4px;
+}
+
+
+.goodbye__link:hover {
+  text-decoration: underline;
+}
+
+.goodbye__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.goodbye__button:hover {
+  filter: brightness(1.05);
+}
+
+.goodbye__button .material-symbols-rounded {
+  font-size: 20px;
+}
+.goodbye__actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.goodbye__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 100px;
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+}
