@@ -1,6 +1,6 @@
 import requests
 
-API_URL = "https://api.kubabin.dev/chat"
+API_URL = "https://season2.kubabin.dev/chat"
 
 
 def get_messages(data):
