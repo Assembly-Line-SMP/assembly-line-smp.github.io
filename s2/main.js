@@ -12,6 +12,7 @@ const tabRootEl = document.getElementById("tab-root");
 const tabs = (window.TABS_CONFIG || []).filter((tab) => tab.enabled);
 const loadedStyles = new Set();
 const loadedPanels = new Map(); // id -> panel element
+const loadingPanels = new Map(); // id -> in-flight promise
 let currentView = null;
 
 /* ---------- Theme ---------- */
@@ -87,29 +88,43 @@ async function loadPanel(tab) {
     return loadedPanels.get(tab.id);
   }
 
+  if (loadingPanels.has(tab.id)) {
+    return loadingPanels.get(tab.id);
+  }
+
   const panel = document.createElement("section");
   panel.className = "view-panel";
   panel.dataset.viewPanel = tab.id;
   panel.hidden = true;
 
+  const panelPromise = (async () => {
+    try {
+      const response = await fetch(`tabs/${tab.id}.html`);
+      panel.innerHTML = response.ok
+        ? await response.text()
+        : `<p class="analytics__status">Couldn't load this tab.</p>`;
+    } catch (error) {
+      console.warn(`Unable to load tabs/${tab.id}.html:`, error);
+      panel.innerHTML = `<p class="analytics__status">Couldn't load this tab.</p>`;
+    }
+
+    tabRootEl.appendChild(panel);
+    loadStyle(tab.id);
+    await loadScript(tab.id);
+
+    window.TAB_MODULES?.[tab.id]?.init?.(panel);
+
+    loadedPanels.set(tab.id, panel);
+    return panel;
+  })();
+
+  loadingPanels.set(tab.id, panelPromise);
+
   try {
-    const response = await fetch(`tabs/${tab.id}.html`);
-    panel.innerHTML = response.ok
-      ? await response.text()
-      : `<p class="analytics__status">Couldn't load this tab.</p>`;
-  } catch (error) {
-    console.warn(`Unable to load tabs/${tab.id}.html:`, error);
-    panel.innerHTML = `<p class="analytics__status">Couldn't load this tab.</p>`;
+    return await panelPromise;
+  } finally {
+    loadingPanels.delete(tab.id);
   }
-
-  tabRootEl.appendChild(panel);
-  loadStyle(tab.id);
-  await loadScript(tab.id);
-
-  window.TAB_MODULES?.[tab.id]?.init?.(panel);
-
-  loadedPanels.set(tab.id, panel);
-  return panel;
 }
 
 /* ---------- View switching ---------- */
