@@ -51,7 +51,11 @@ function buildNavRail() {
       <span class="nav-item__label">${tab.label}</span>
     `;
 
-    button.addEventListener("click", () => activateView(tab.id));
+    button.addEventListener("click", () => {
+      // Update the URL so this view can be linked/shared, then activate.
+      location.hash = tab.id;
+      activateView(tab.id);
+    });
     navItemsEl.appendChild(button);
   });
 }
@@ -135,6 +139,22 @@ async function activateView(viewId) {
 /* ---------- Boot ---------- */
 initializeTheme();
 buildNavRail();
+
+// If a hash is present like #analytics or #/analytics, try to open that view.
+function getHashTarget() {
+  return (location.hash || "").replace(/^#\/?/, "");
+}
+
+window.addEventListener("hashchange", () => {
+  const target = getHashTarget();
+  if (target) activateView(target);
+});
+
 if (tabs.length > 0) {
-  activateView(tabs[0].id);
+  const initial = getHashTarget();
+  if (initial && tabs.some((t) => t.id === initial)) {
+    activateView(initial);
+  } else {
+    activateView(tabs[0].id);
+  }
 }
