@@ -46,11 +46,20 @@ html, body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 48px;
+  justify-content: space-between;
+  gap: 24px;
   color: #ffffff;
   text-align: center;
-  padding: 24px;
+  padding: clamp(24px, 4vh, 48px) 24px clamp(22px, 4vh, 38px);
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
+  width: 100%;
+  padding-top: clamp(60px, 12vh, 140px);
 }
 
 h1 {
@@ -112,3 +121,42 @@ h1 {
   opacity: 1;
   text-decoration: underline;
 }
+
+.social-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: #ffffff;
+  opacity: 0.85;
+  text-decoration: none;
+  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-link:hover,
+.social-link:focus-visible {
+  opacity: 1;
+  transform: translateY(-1px);
+}
+
+.social-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
+}
+
+/* Drop in white WebP logo files in assets/icons/ and keep the same filenames.
+   The page layout will stay the same while you swap in your own branded icons. */
