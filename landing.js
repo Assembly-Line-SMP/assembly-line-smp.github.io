@@ -15,7 +15,7 @@
   // Start on the default background.
   show("default");
 
-  document.querySelectorAll(".season").forEach((el) => {
+  document.querySelectorAll(".season:not(.season--disabled)").forEach((el) => {
     const season = el.dataset.season;
 
     el.addEventListener("mouseenter", () => show(season));

@@ -1,0 +1,304 @@
+/* ---------- Material 3 design tokens (from Figma) ---------- */
+:root {
+  /* Single control: change this hue (0-360) to shift the accent color everywhere. */
+  --accent-hue: 261;
+
+  --md-sys-color-surface: #FEF7FF;
+  --md-sys-color-surface-container-lowest: #FFFFFF;
+  --md-sys-color-surface-container-high: #ECE6F0;
+  --md-sys-color-outline-variant: #CAC4D0;
+  --md-sys-color-on-surface: #1D1B20;
+  --md-sys-color-on-surface-variant: #49454F;
+  --md-sys-color-secondary: hsl(var(--accent-hue), 15%, 40%);
+  --md-sys-color-secondary-container: hsl(var(--accent-hue), 47%, 91%);
+  --md-sys-color-on-secondary-container: hsl(var(--accent-hue), 15%, 27%);
+  --md-sys-color-primary: hsl(var(--accent-hue), 39%, 45%);
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-surface-container: #F4EFF8;
+  --md-sys-color-surface-container-highest: #E7E0EC;
+  --md-sys-color-shadow: rgba(0, 0, 0, 0.15);
+
+  --md-corner-extra-large: 28px;
+
+  --font-display: "Google Sans Flex", "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: "Google Sans Flex", "Segoe UI Variable", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --md-sys-color-surface: #121212;
+  --md-sys-color-surface-container-lowest: #1E1E1E;
+  --md-sys-color-surface-container-high: #2B2B2B;
+  --md-sys-color-outline-variant: #444444;
+  --md-sys-color-on-surface: #F2F2F2;
+  --md-sys-color-on-surface-variant: #D4D4D4;
+  --md-sys-color-secondary: hsl(var(--accent-hue), 22%, 78%);
+  --md-sys-color-secondary-container: hsl(var(--accent-hue), 15%, 25%);
+  --md-sys-color-on-secondary-container: hsl(var(--accent-hue), 47%, 91%);
+  --md-sys-color-primary: hsl(var(--accent-hue), 100%, 84%);
+  --md-sys-color-on-primary: hsl(var(--accent-hue), 30%, 16%);
+  --md-sys-color-surface-container: #1A1A1A;
+  --md-sys-color-surface-container-highest: #2E2E2E;
+  --md-sys-color-shadow: rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--md-sys-color-surface);
+  font-family: var(--font-body);
+  color: var(--md-sys-color-on-surface);
+  transition: background 0.2s ease, color 0.2s ease;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.material-symbols-rounded {
+  font-family: "Material Symbols Rounded";
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 24px;
+  line-height: 1;
+  user-select: none;
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-size: 24px;
+  line-height: 1;
+  user-select: none;
+}
+
+.nav-item__icon--filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ---------- Layout ---------- */
+.app {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  isolation: isolate;
+}
+
+/* ---------- Navigation Rail ---------- */
+.nav-rail {
+  width: 72px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 44px;
+  gap: 28px;
+  background: var(--md-sys-color-surface);
+  position: relative;
+  z-index: 2;
+}
+
+.icon-button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px var(--md-sys-color-shadow);
+}
+
+.content__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.nav-rail__fab {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  border: none;
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 1px 2px rgba(0,0,0,0.1);
+  transition: box-shadow 0.2s ease;
+}
+.nav-rail__fab:hover {
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.nav-rail__items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-item {
+  width: 72px;
+  height: 64px;
+  border: none;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 0;
+}
+
+.nav-item__indicator {
+  width: 56px;
+  height: 32px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.nav-item[data-selected="true"] .nav-item__indicator {
+  background: var(--md-sys-color-secondary-container);
+}
+.nav-item[data-selected="true"] {
+  color: var(--md-sys-color-on-surface);
+}
+
+.nav-item:not([data-selected="true"]):hover .nav-item__indicator {
+  background: rgba(0,0,0,0.06);
+}
+
+.nav-item__label {
+  font-family: var(--font-display) !important;
+  font-weight: 500 !important;
+  font-variation-settings: "opsz" 12, "ROND" 100;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  line-height: 16px;
+}
+
+/* ---------- Main content ---------- */
+.content {
+  flex: 1;
+  padding: 16px 16px 17px 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.page-title {
+  font-family: var(--font-display) !important;
+  font-weight: 600 !important;
+  font-variation-settings: "opsz" 40, "ROND" 100;
+  font-size: 34px;
+  line-height: 44px;
+  letter-spacing: -0.25px;
+  color: var(--md-sys-color-on-surface);
+  margin: 0 0 0 10px;
+}
+
+@media (min-width: 900px) {
+  .page-title {
+    font-size: 45px;
+    line-height: 52px;
+  }
+}
+
+/* ---------- View panels ---------- */
+.view-panel {
+  flex: 1;
+  min-height: 0;
+  display: none;
+}
+
+.view-panel--active {
+  display: flex;
+}
+
+.view-panel[hidden] {
+  display: none !important;
+}
+
+/* ---------- Responsive: collapse rail labels on small screens ---------- */
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .nav-rail {
+    width: 100%;
+    padding: 12px 12px 8px;
+    gap: 10px;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+  }
+
+  .nav-rail__items {
+    width: 100%;
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .nav-item {
+    width: 100%;
+    height: auto;
+    min-height: 56px;
+    padding: 6px 8px;
+    border-radius: 14px;
+  }
+
+  .nav-item[data-selected="true"] {
+    background: var(--md-sys-color-secondary-container);
+  }
+
+  .nav-item__indicator {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-item__label {
+    font-size: 10px;
+  }
+
+  .content {
+    padding: 12px 12px 16px;
+  }
+
+  .content__header {
+    margin-bottom: 12px;
+  }
+
+  .page-title {
+    font-size: 24px;
+    line-height: 30px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-rail { padding-top: 10px; }
+  .content { padding: 10px 10px 12px; }
+  .page-title { font-size: 20px; line-height: 26px; }
+  .icon-button { width: 40px; height: 40px; }
+}
+
+/* When a nav-item is selected, turn its icon FILL on */
+.nav-item[data-selected="true"] .material-symbols-outlined {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
