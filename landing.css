@@ -70,8 +70,10 @@ h1 {
 }
 
 .seasons {
-  display: flex;
-  gap: clamp(32px, 10vw, 96px);
+  display: grid;
+  grid-template-columns: repeat(3, 180px);
+  gap: clamp(24px, 6vw, 72px);
+  justify-content: center;
 }
 
 .season {
@@ -115,6 +117,7 @@ h1 {
   font-size: 1.1rem;
   font-weight: 500;
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  text-wrap: balance;
 }
 
 .suggest-link {
@@ -166,5 +169,26 @@ h1 {
   filter: drop-shadow(0 1px 6px rgba(0, 0, 0, 0.5));
 }
 
-/* Drop in white WebP logo files in assets/icons/ and keep the same filenames.
-   The page layout will stay the same while you swap in your own branded icons. */
+@media (max-width: 760px) {
+  .seasons {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .hero {
+    gap: 32px;
+    padding-top: clamp(32px, 8vh, 80px);
+  }
+
+  /* three stacked seasons can be taller than a small screen, so allow scrolling */
+  html, body {
+    overflow-y: auto;
+  }
+
+  .content {
+    height: auto;
+    min-height: 100dvh;
+  }
+}
