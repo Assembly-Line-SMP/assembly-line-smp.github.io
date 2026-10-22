@@ -19,4 +19,7 @@
 //   enabled  - if false, the tab is hidden and skipped entirely
 //   hasScript / hasStyle - set to false if that tab has no .js/.css file
 
-window.TABS_CONFIG = [];
+window.TABS_CONFIG = [
+  { id: "map", label: "Map", icon: "map", enabled: true },
+  { id: "chat", label: "Chat", icon: "chat_bubble", enabled: true }
+];

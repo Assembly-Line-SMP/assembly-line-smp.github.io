@@ -4,7 +4,7 @@ window.TAB_MODULES = window.TAB_MODULES || {};
 (function () {
   const chatApiUrl = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
     ? "/api/chat"
-    : "https://season2.kubabin.dev/chat";
+    : "https://season3.kubabin.dev/chat";
 
   let messagesEl = null;
   let scrollDownButton = null;

@@ -155,12 +155,6 @@ async function activateView(viewId) {
 initializeTheme();
 buildNavRail();
 
-const navRailEl = document.querySelector(".nav-rail");
-if (navRailEl && tabs.length === 0) {
-  navRailEl.style.display = "none";
-  tabRootEl.innerHTML = '<div class="coming-soon">Coming soon!</div>';
-}
-
 // If a hash is present like #analytics or #/analytics, try to open that view.
 function getHashTarget() {
   return (location.hash || "").replace(/^#\/?/, "");
