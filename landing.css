@@ -25,11 +25,13 @@ html, body {
 /* If you use .png instead of .jpg, change the extensions below to match. */
 .bg-default { background-image: url("backgrounds/default.jpg"); opacity: 1; }
 .bg-season1 { background-image: url("backgrounds/season1-sepia.jpg"); opacity: 0; }
-.bg-season2 { background-image: url("backgrounds/season2.jpg"); opacity: 0; }
+.bg-season2 { background-image: url("backgrounds/season2-sepia.jpg"); opacity: 0; }
+.bg-season3 { background-image: url("backgrounds/season3.jpg"); opacity: 0; }
 
 .bg-default.active { opacity: 1; }
 .bg-season1.active { opacity: 1; }
 .bg-season2.active { opacity: 1; }
+.bg-season3.active { opacity: 1; }
 
 /* Extra dark scrim on top for text legibility, independent of brightness filter */
 .bg-overlay {
