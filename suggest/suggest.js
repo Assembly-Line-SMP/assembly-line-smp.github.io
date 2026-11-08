@@ -261,7 +261,7 @@ function renderSuggestionCard(s) {
     <div class="suggestion-card__body">
       <div class="suggestion-card__title-row">
         <p class="suggestion-card__title">${escapeHtml(s.title)}</p>
-        ${s.added ? `<span class="suggestion-card__badge suggestion-card__badge--added">Added</span>` : ""}
+        ${s.added ? `<span class="suggestion-card__badge suggestion-card__badge--added">To be added</span>` : ""}
       </div>
       <p class="suggestion-card__desc">${escapeHtml(s.description || "")}</p>
       <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")}</p>
