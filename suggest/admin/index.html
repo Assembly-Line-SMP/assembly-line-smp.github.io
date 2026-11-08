@@ -84,6 +84,30 @@
       </details>
     </section>
 
+    <section class="suggest-list-section admin-users-section">
+      <div class="suggest-list-section__head">
+        <div>
+          <h2 class="suggest-list-section__title">Users</h2>
+          <p class="suggest-header__subtitle">Recent Discord logins, account activity, and moderation.</p>
+        </div>
+        <div class="admin-toolbar">
+          <input id="user-search" type="search" placeholder="Search name or Discord ID" aria-label="Search users" />
+          <select id="user-sort" aria-label="Sort users">
+            <option value="latest">Latest login</option>
+            <option value="oldest">Oldest login</option>
+            <option value="votes">Most votes</option>
+            <option value="suggestions">Most suggestions</option>
+          </select>
+          <button id="users-refresh" class="admin-icon-button" type="button" title="Refresh users" aria-label="Refresh users">
+            <span class="material-symbols-rounded">refresh</span>
+          </button>
+        </div>
+      </div>
+      <div id="admin-users" class="admin-users-list">
+        <p class="suggest-empty">Loading users…</p>
+      </div>
+    </section>
+
     <section class="suggest-list-section">
       <div class="suggest-list-section__head">
         <h2 class="suggest-list-section__title">All Suggestions</h2>
@@ -92,6 +116,14 @@
           <button class="chip" data-filter="pending">Pending</button>
           <button class="chip" data-filter="added">Added</button>
         </div>
+      </div>
+      <div class="admin-toolbar admin-suggestion-toolbar">
+        <input id="suggestion-search" type="search" placeholder="Search suggestions or authors" aria-label="Search suggestions" />
+        <select id="suggestion-sort" aria-label="Sort suggestions">
+          <option value="score">Highest net votes</option>
+          <option value="newest">Newest</option>
+          <option value="controversial">Most votes</option>
+        </select>
       </div>
       <div id="admin-list" class="suggestions-list">
         <p class="suggest-empty">Loading…</p>
