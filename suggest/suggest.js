@@ -116,7 +116,12 @@ document.addEventListener("click", (event) => {
 
 async function runSearch(query) {
   try {
-    const res = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}`);
+    const params = new URLSearchParams({
+      q: query,
+      facets: JSON.stringify([["versions:1.21.1"]]),
+    });
+
+    const res = await fetch(`${API_BASE}/search?${params.toString()}`);
     if (!res.ok) throw new Error("search failed");
     const data = await res.json();
     renderSearchResults(data.hits || []);
