@@ -124,7 +124,10 @@ async function runSearch(query) {
     const res = await fetch(`${API_BASE}/search?${params.toString()}`);
     if (!res.ok) throw new Error("search failed");
     const data = await res.json();
-    renderSearchResults(data.hits || []);
+    const compatibleHits = (data.hits || []).filter(
+      (hit) => Array.isArray(hit.versions) && hit.versions.includes("1.21.1")
+    );
+    renderSearchResults(compatibleHits);
   } catch {
     searchResultsEl.innerHTML = `<p class="suggest-empty">Search failed. Try again in a moment.</p>`;
     searchResultsEl.style.display = "block";
