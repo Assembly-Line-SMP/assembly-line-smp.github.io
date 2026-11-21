@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Download the latest Modrinth App release for your computer.">
+  <meta name="theme-color" content="#101510">
+  <title>Download Modrinth App — Assembly Line SMP</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #101510; color: #f3f5f2; }
+    * { box-sizing: border-box; }
+    body { min-height: 100vh; margin: 0; display: grid; place-items: center; padding: 24px; background: radial-gradient(ellipse at top, #263a2b 0, #101510 62%); }
+    main { width: min(100%, 560px); padding: clamp(24px, 6vw, 44px); border: 1px solid #ffffff20; border-radius: 20px; background: #171d18eF; box-shadow: 0 24px 80px #0007; }
+    .eyebrow { color: #9cdda8; font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h1 { margin: 10px 0; font-size: clamp(1.8rem, 6vw, 2.5rem); line-height: 1.1; }
+    p { color: #c4cdc5; line-height: 1.6; }
+    #status { min-height: 3em; }
+    .download { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; margin: 8px 0 12px; padding: 0 20px; border-radius: 10px; background: #8fe39e; color: #102015; font-weight: 750; text-decoration: none; }
+    .download:hover { background: #b0f2bb; }
+    .download[hidden], #alternatives[hidden] { display: none; }
+    #alternatives { margin-top: 20px; padding-top: 14px; border-top: 1px solid #ffffff20; }
+    #alternatives a { display: block; width: fit-content; margin: 10px 0; color: #b6e9bd; overflow-wrap: anywhere; }
+    .note { margin-top: 24px; font-size: .88rem; color: #9ba69c; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="eyebrow">Assembly Line SMP</div>
+    <h1>Modrinth App</h1>
+    <p id="status" role="status" aria-live="polite">Detecting your platform and checking the latest release…</p>
+    <a class="download" id="download" hidden>Download</a>
+    <div id="alternatives" hidden>
+      <p>Or choose another installer:</p>
+      <div id="asset-links"></div>
+    </div>
+    <p class="note">Downloads are provided by the <a href="https://github.com/Pavle012/modrinth-cracked/releases" style="color:inherit">Pavle012/modrinth-cracked GitHub releases</a>. These builds are unsigned and do not auto-update.</p>
+  </main>
+  <script>
+    (() => {
+      const releaseApi = "https://api.github.com/repos/Pavle012/modrinth-cracked/releases/latest";
+      const releasePage = "https://github.com/Pavle012/modrinth-cracked/releases/latest";
+      const status = document.getElementById("status");
+      const download = document.getElementById("download");
+      const alternatives = document.getElementById("alternatives");
+      const assetLinks = document.getElementById("asset-links");
+
+      function platform() {
+        const hint = navigator.userAgentData && navigator.userAgentData.platform;
+        const value = (hint || navigator.platform || navigator.userAgent || "").toLowerCase();
+        if (value.includes("win")) return "Windows";
+        if (value.includes("mac") || value.includes("iphone") || value.includes("ipad")) return "macOS";
+        if (value.includes("linux") || value.includes("x11")) return "Linux";
+        return null;
+      }
+
+      function chooseAsset(assets, os) {
+        if (os === "Windows") return assets.find((asset) => /x64-setup\.exe$/i.test(asset.name));
+        if (os === "macOS") return assets.find((asset) => /universal\.dmg$/i.test(asset.name));
+        if (os === "Linux") return assets.find((asset) => /amd64\.AppImage$/i.test(asset.name));
+        return null;
+      }
+
+      function addAssetLink(asset) {
+        const link = document.createElement("a");
+        link.href = asset.browser_download_url;
+        link.textContent = asset.name;
+        link.rel = "noopener";
+        assetLinks.append(link);
+      }
+
+      async function init() {
+        const os = platform();
+        try {
+          const response = await fetch(releaseApi, { headers: { Accept: "application/vnd.github+json" } });
+          if (!response.ok) throw new Error("GitHub returned " + response.status);
+          const release = await response.json();
+          const assets = (release.assets || []).filter((asset) => asset.browser_download_url);
+          const selected = chooseAsset(assets, os);
+
+          if (selected) {
+            status.textContent = `Detected ${os}. Latest release: ${release.name || release.tag_name}. Your download should begin shortly.`;
+            download.href = selected.browser_download_url;
+            download.textContent = `Download for ${os} — ${selected.name}`;
+            download.hidden = false;
+            window.setTimeout(() => window.location.assign(selected.browser_download_url), 900);
+          } else {
+            status.textContent = os
+              ? `Detected ${os}, but there isn't a matching installer in the latest release.`
+              : "Couldn't identify your operating system. Choose an installer below.";
+          }
+
+          assets.forEach(addAssetLink);
+          alternatives.hidden = assets.length === 0;
+          if (!assets.length) status.textContent = "No downloadable files were found in the latest release.";
+        } catch (error) {
+          status.textContent = "Couldn't check the latest release automatically. Open the releases page to choose a download.";
+          const link = document.createElement("a");
+          link.href = releasePage;
+          link.textContent = "View all releases";
+          link.rel = "noopener";
+          assetLinks.append(link);
+          alternatives.hidden = false;
+        }
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>
