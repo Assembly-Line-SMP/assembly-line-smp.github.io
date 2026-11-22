@@ -286,12 +286,19 @@ function renderSuggestionCard(s) {
   const net = s.upvotes - s.downvotes;
   const userVote = s.your_vote; // "up" | "down" | null
   const votingDisabled = status === "rejected" || status === "approved";
+  const nextUpdate = s.next_update_date || s.approved_for_date || publicNextUpdate;
+  const badge = status === "approved"
+    ? `<span class="suggestion-card__badge suggestion-card__badge--approved" title="${escapeHtml(nextUpdate ? `Coming ${formatUpdateDate(nextUpdate)}` : "Approved — update date pending")}">Approved</span>`
+    : status === "rejected"
+      ? `<span class="suggestion-card__badge suggestion-card__badge--rejected">Rejected</span>`
+      : "";
 
   card.innerHTML = `
     <img class="suggestion-card__icon" src="${s.icon_url || ""}" alt="" onerror="this.style.visibility='hidden'" />
     <div class="suggestion-card__body">
       <div class="suggestion-card__title-row">
         <p class="suggestion-card__title">${escapeHtml(s.title)}</p>
+        ${badge}
       </div>
       <p class="suggestion-card__desc">${escapeHtml(s.description || "")}</p>
       <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")}</p>
