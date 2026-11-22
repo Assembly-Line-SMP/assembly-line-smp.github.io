@@ -11,6 +11,23 @@
 <link rel="stylesheet" href="./base.css" />
 <link rel="stylesheet" href="./suggest.css" />
 <link rel="stylesheet" href="./suggestion.css" />
+<script>
+(function () {
+  const id = new URL(window.location.href).searchParams.get("id");
+  if (!id) return;
+  const apiBase = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+    ? "/suggest/api"
+    : "https://raspi.kubabin.dev/suggest/api";
+  fetch(`${apiBase}/suggestions/${encodeURIComponent(id)}`, { credentials: "include" })
+    .then((response) => response.ok ? response.json() : null)
+    .then((suggestion) => {
+      if (suggestion && suggestion.modrinth_slug) {
+        window.history.replaceState(null, "", `/suggest/${encodeURIComponent(suggestion.modrinth_slug)}`);
+      }
+    })
+    .catch(() => {});
+})();
+</script>
 </head>
 <body>
 <div class="suggest-app suggestion-detail-app">
@@ -32,6 +49,6 @@
   </main>
 </div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script src="./suggestion.js"></script>
+<script src="./suggestion.js?v=slug-migration-1"></script>
 </body>
 </html>

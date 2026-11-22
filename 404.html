@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="refresh" content="0; url=/suggest/" />
   <title>Redirecting…</title>
 </head>
 <body>
@@ -13,7 +12,7 @@
     if (match) {
       const slug = decodeURIComponent(match[1]);
       if (slug && !["suggestion.html", "index.html"].includes(slug)) {
-        window.location.replace(`/suggest/suggestion.html?slug=${encodeURIComponent(slug)}`);
+        window.location.replace(`/suggest/suggestion.html?slug=${encodeURIComponent(slug)}&_=${Date.now()}`);
         return;
       }
     }
