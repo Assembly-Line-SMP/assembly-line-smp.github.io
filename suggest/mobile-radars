@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Radars: Mobile Radars — Suggest a Mod</title>
+<meta name="description" content="Mobile radar display and radar vision googles for the create radars mod">
+<link rel="canonical" href="https://kubabin.dev/suggest/mobile-radars">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create Radars: Mobile Radars">
+<meta property="og:description" content="Mobile radar display and radar vision googles for the create radars mod">
+<meta property="og:url" content="https://kubabin.dev/suggest/mobile-radars">
+<meta property="og:image" content="https://cdn.modrinth.com/data/f6vfNoDc/fed7e451158a100dc67f94cc7cc118123a11157c_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create Radars: Mobile Radars">
+<meta name="twitter:description" content="Mobile radar display and radar vision googles for the create radars mod">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/f6vfNoDc/fed7e451158a100dc67f94cc7cc118123a11157c_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=mobile-radars");
+</script>
+</body>
+</html>

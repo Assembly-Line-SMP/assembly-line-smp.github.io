@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create: Oxidized — Suggest a Mod</title>
+<meta name="description" content="QoL addon for Create, which adds oxidizing recipes to all copper blocks">
+<link rel="canonical" href="https://kubabin.dev/suggest/create-oxidized">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create: Oxidized">
+<meta property="og:description" content="QoL addon for Create, which adds oxidizing recipes to all copper blocks">
+<meta property="og:url" content="https://kubabin.dev/suggest/create-oxidized">
+<meta property="og:image" content="https://cdn.modrinth.com/data/X9kjRZeX/7372ab0b418331c1c08d5387ec636ecf955ee37c_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create: Oxidized">
+<meta name="twitter:description" content="QoL addon for Create, which adds oxidizing recipes to all copper blocks">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/X9kjRZeX/7372ab0b418331c1c08d5387ec636ecf955ee37c_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=create-oxidized");
+</script>
+</body>
+</html>

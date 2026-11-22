@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create: Ender Transmission — Suggest a Mod</title>
+<meta name="description" content="Undimensional Machines">
+<link rel="canonical" href="https://kubabin.dev/suggest/create-ender-transmission">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create: Ender Transmission">
+<meta property="og:description" content="Undimensional Machines">
+<meta property="og:url" content="https://kubabin.dev/suggest/create-ender-transmission">
+<meta property="og:image" content="https://cdn.modrinth.com/data/wtW8g4TG/5798aa8abaf160292075ecff90fe59af4eb4a443_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create: Ender Transmission">
+<meta name="twitter:description" content="Undimensional Machines">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/wtW8g4TG/5798aa8abaf160292075ecff90fe59af4eb4a443_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=create-ender-transmission");
+</script>
+</body>
+</html>

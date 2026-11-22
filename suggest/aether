@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Aether — Suggest a Mod</title>
+<meta name="description" content="The Aether Team presents the original Aether mod! Maintained and kept up to date for modern versions of Minecraft and fully compatible with multiplayer!">
+<link rel="canonical" href="https://kubabin.dev/suggest/aether">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="The Aether">
+<meta property="og:description" content="The Aether Team presents the original Aether mod! Maintained and kept up to date for modern versions of Minecraft and fully compatible with multiplayer!">
+<meta property="og:url" content="https://kubabin.dev/suggest/aether">
+<meta property="og:image" content="https://cdn.modrinth.com/data/YhmgMVyu/f76fada67156fdeab0974f5f791f936be524d5d3_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Aether">
+<meta name="twitter:description" content="The Aether Team presents the original Aether mod! Maintained and kept up to date for modern versions of Minecraft and fully compatible with multiplayer!">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/YhmgMVyu/f76fada67156fdeab0974f5f791f936be524d5d3_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=aether");
+</script>
+</body>
+</html>

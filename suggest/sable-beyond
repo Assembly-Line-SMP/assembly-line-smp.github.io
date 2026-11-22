@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sable Beyond — Suggest a Mod</title>
+<meta name="description" content="Sable Beyond expands the Sable mod with additional features, quality-of-life improvements, and compatibility support. It is designed to add ideas that are not part of the main mod while keeping the gameplay experience consistent with Sable.">
+<link rel="canonical" href="https://kubabin.dev/suggest/sable-beyond">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Sable Beyond">
+<meta property="og:description" content="Sable Beyond expands the Sable mod with additional features, quality-of-life improvements, and compatibility support. It is designed to add ideas that are not part of the main mod while keeping the gameplay experience consistent with Sable.">
+<meta property="og:url" content="https://kubabin.dev/suggest/sable-beyond">
+<meta property="og:image" content="https://cdn.modrinth.com/data/PrW3B4fH/95de6b9643362bc8b8c90ff3fc727f8ace578b3a.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sable Beyond">
+<meta name="twitter:description" content="Sable Beyond expands the Sable mod with additional features, quality-of-life improvements, and compatibility support. It is designed to add ideas that are not part of the main mod while keeping the gameplay experience consistent with Sable.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/PrW3B4fH/95de6b9643362bc8b8c90ff3fc727f8ace578b3a.png">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=sable-beyond");
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create: Ultimate Factory — Suggest a Mod</title>
+<meta name="description" content="An addon for the Create mod developed to increase automation possibilities, adding 30 (reasonably) balanced recipes to the game.">
+<link rel="canonical" href="https://kubabin.dev/suggest/create-ultimate-factory">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create: Ultimate Factory">
+<meta property="og:description" content="An addon for the Create mod developed to increase automation possibilities, adding 30 (reasonably) balanced recipes to the game.">
+<meta property="og:url" content="https://kubabin.dev/suggest/create-ultimate-factory">
+<meta property="og:image" content="https://cdn.modrinth.com/data/N9QToVpw/973e6f8a59b52aa91236d2fd54dd92d953148a5f_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create: Ultimate Factory">
+<meta name="twitter:description" content="An addon for the Create mod developed to increase automation possibilities, adding 30 (reasonably) balanced recipes to the game.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/N9QToVpw/973e6f8a59b52aa91236d2fd54dd92d953148a5f_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=create-ultimate-factory");
+</script>
+</body>
+</html>

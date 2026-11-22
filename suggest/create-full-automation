@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create: Full Automation — Suggest a Mod</title>
+<meta name="description" content="A QOL Create Mod add-on that unlocks more automatable create stuff in a vanilla style.">
+<link rel="canonical" href="https://kubabin.dev/suggest/create-full-automation">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create: Full Automation">
+<meta property="og:description" content="A QOL Create Mod add-on that unlocks more automatable create stuff in a vanilla style.">
+<meta property="og:url" content="https://kubabin.dev/suggest/create-full-automation">
+<meta property="og:image" content="https://cdn.modrinth.com/data/fv9GpWLj/b6a27e9dd945e5e6e9ba6a5209507ae0ba54611e_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create: Full Automation">
+<meta name="twitter:description" content="A QOL Create Mod add-on that unlocks more automatable create stuff in a vanilla style.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/fv9GpWLj/b6a27e9dd945e5e6e9ba6a5209507ae0ba54611e_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=create-full-automation");
+</script>
+</body>
+</html>

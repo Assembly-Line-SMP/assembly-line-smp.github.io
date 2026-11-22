@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ocean&#x27;s Delight — Suggest a Mod</title>
+<meta name="description" content="Ocean&#x27;s Delight is an addon mod for Farmer&#x27;s Delight based around adding culinary content to the ocean!">
+<link rel="canonical" href="https://kubabin.dev/suggest/oceans-delight">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Ocean&#x27;s Delight">
+<meta property="og:description" content="Ocean&#x27;s Delight is an addon mod for Farmer&#x27;s Delight based around adding culinary content to the ocean!">
+<meta property="og:url" content="https://kubabin.dev/suggest/oceans-delight">
+<meta property="og:image" content="https://cdn.modrinth.com/data/DGiq4ZSW/949ba66d6fffb5a984fbb70e3ef4a51f15be3191.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ocean&#x27;s Delight">
+<meta name="twitter:description" content="Ocean&#x27;s Delight is an addon mod for Farmer&#x27;s Delight based around adding culinary content to the ocean!">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/DGiq4ZSW/949ba66d6fffb5a984fbb70e3ef4a51f15be3191.png">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=oceans-delight");
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Radar: Fire Arc Filter — Suggest a Mod</title>
+<meta name="description" content="Qol Addon for Create: Radars that adds fire arc controls for cannon networks no-fire sectors in yaw and pitch so weapons only engage when the bore is pointed where you allow.">
+<link rel="canonical" href="https://kubabin.dev/suggest/create-radar-fire-arc">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create Radar: Fire Arc Filter">
+<meta property="og:description" content="Qol Addon for Create: Radars that adds fire arc controls for cannon networks no-fire sectors in yaw and pitch so weapons only engage when the bore is pointed where you allow.">
+<meta property="og:url" content="https://kubabin.dev/suggest/create-radar-fire-arc">
+<meta property="og:image" content="https://cdn.modrinth.com/data/lemQi0w3/6fc0e2d88f56cea1e88e86760ec80f12eb4ddd20_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create Radar: Fire Arc Filter">
+<meta name="twitter:description" content="Qol Addon for Create: Radars that adds fire arc controls for cannon networks no-fire sectors in yaw and pitch so weapons only engage when the bore is pointed where you allow.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/lemQi0w3/6fc0e2d88f56cea1e88e86760ec80f12eb4ddd20_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=create-radar-fire-arc");
+</script>
+</body>
+</html>

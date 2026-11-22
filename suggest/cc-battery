@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CC: Battery — Suggest a Mod</title>
+<meta name="description" content="СС: Tweaked now requires FE energy to use computers.
+СС: Tweaked теперь требует энергии FE для работы компьютеров.">
+<link rel="canonical" href="https://kubabin.dev/suggest/cc-battery">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="CC: Battery">
+<meta property="og:description" content="СС: Tweaked now requires FE energy to use computers.
+СС: Tweaked теперь требует энергии FE для работы компьютеров.">
+<meta property="og:url" content="https://kubabin.dev/suggest/cc-battery">
+<meta property="og:image" content="https://cdn.modrinth.com/data/I6XgwtMn/d12260b79d7c851a7dc646d67e7217c48d2bc1de_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CC: Battery">
+<meta name="twitter:description" content="СС: Tweaked now requires FE energy to use computers.
+СС: Tweaked теперь требует энергии FE для работы компьютеров.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/I6XgwtMn/d12260b79d7c851a7dc646d67e7217c48d2bc1de_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=cc-battery");
+</script>
+</body>
+</html>

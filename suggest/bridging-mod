@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bridging Mod — Suggest a Mod</title>
+<meta name="description" content="Reacharound Placement / Bedrock Bridging for Fabric, Forge &amp; Quilt with a few extra tweaks">
+<link rel="canonical" href="https://kubabin.dev/suggest/bridging-mod">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Bridging Mod">
+<meta property="og:description" content="Reacharound Placement / Bedrock Bridging for Fabric, Forge &amp; Quilt with a few extra tweaks">
+<meta property="og:url" content="https://kubabin.dev/suggest/bridging-mod">
+<meta property="og:image" content="https://cdn.modrinth.com/data/lO3s8hjs/1796c63ace243a670a9a9e4a40265aaf3773b2c9_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bridging Mod">
+<meta name="twitter:description" content="Reacharound Placement / Bedrock Bridging for Fabric, Forge &amp; Quilt with a few extra tweaks">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/lO3s8hjs/1796c63ace243a670a9a9e4a40265aaf3773b2c9_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=bridging-mod");
+</script>
+</body>
+</html>

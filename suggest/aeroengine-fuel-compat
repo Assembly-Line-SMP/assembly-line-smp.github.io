@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AeroEngine fuel compat — Suggest a Mod</title>
+<meta name="description" content="Simple compat mod between AeroEngine and fuels from other mods(TFMG&#x27;s and Diesel Generators&#x27; fuel right now).">
+<link rel="canonical" href="https://kubabin.dev/suggest/aeroengine-fuel-compat">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="AeroEngine fuel compat">
+<meta property="og:description" content="Simple compat mod between AeroEngine and fuels from other mods(TFMG&#x27;s and Diesel Generators&#x27; fuel right now).">
+<meta property="og:url" content="https://kubabin.dev/suggest/aeroengine-fuel-compat">
+<meta property="og:image" content="https://cdn.modrinth.com/data/RNUSzf19/eee4faf19d0869a6d8902cae133e3ec32ad04515_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AeroEngine fuel compat">
+<meta name="twitter:description" content="Simple compat mod between AeroEngine and fuels from other mods(TFMG&#x27;s and Diesel Generators&#x27; fuel right now).">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/RNUSzf19/eee4faf19d0869a6d8902cae133e3ec32ad04515_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=aeroengine-fuel-compat");
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AeroEngine-Fuel-Whitelist — Suggest a Mod</title>
+<meta name="description" content="Adds a config file in which you can add and remove fluids that can be used by the Aero Engine.">
+<link rel="canonical" href="https://kubabin.dev/suggest/aeroengine-fuel-whitelist">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="AeroEngine-Fuel-Whitelist">
+<meta property="og:description" content="Adds a config file in which you can add and remove fluids that can be used by the Aero Engine.">
+<meta property="og:url" content="https://kubabin.dev/suggest/aeroengine-fuel-whitelist">
+<meta property="og:image" content="https://cdn.modrinth.com/data/bZonF5Tr/e764a840040983fa7b0ca559093aef271cf75c4f_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AeroEngine-Fuel-Whitelist">
+<meta name="twitter:description" content="Adds a config file in which you can add and remove fluids that can be used by the Aero Engine.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/bZonF5Tr/e764a840040983fa7b0ca559093aef271cf75c4f_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=aeroengine-fuel-whitelist");
+</script>
+</body>
+</html>

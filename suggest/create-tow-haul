@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create: Tow &amp; Haul — Suggest a Mod</title>
+<meta name="description" content="Towing gear for Create physics vehicles: a redstone winch that reels a real steel rope, tow bars to hook it to, and a coupling that joins two tow bars with a rigid drawbar so you can actually pull a trailer. For Create: Aeronautics / Simulated.">
+<link rel="canonical" href="https://kubabin.dev/suggest/create-tow-haul">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create: Tow &amp; Haul">
+<meta property="og:description" content="Towing gear for Create physics vehicles: a redstone winch that reels a real steel rope, tow bars to hook it to, and a coupling that joins two tow bars with a rigid drawbar so you can actually pull a trailer. For Create: Aeronautics / Simulated.">
+<meta property="og:url" content="https://kubabin.dev/suggest/create-tow-haul">
+<meta property="og:image" content="https://cdn.modrinth.com/data/aftdeuqk/3fe500c4743d47fca2929473e169663018ba35eb_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create: Tow &amp; Haul">
+<meta name="twitter:description" content="Towing gear for Create physics vehicles: a redstone winch that reels a real steel rope, tow bars to hook it to, and a coupling that joins two tow bars with a rigid drawbar so you can actually pull a trailer. For Create: Aeronautics / Simulated.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/aftdeuqk/3fe500c4743d47fca2929473e169663018ba35eb_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=create-tow-haul");
+</script>
+</body>
+</html>

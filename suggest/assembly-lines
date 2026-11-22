@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Assembly Line — Suggest a Mod</title>
+<meta name="description" content="Assembly Line is a mod that focuses on automation of factory-like environments in feel with the old voltz mod">
+<link rel="canonical" href="https://kubabin.dev/suggest/assembly-lines">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Assembly Line">
+<meta property="og:description" content="Assembly Line is a mod that focuses on automation of factory-like environments in feel with the old voltz mod">
+<meta property="og:url" content="https://kubabin.dev/suggest/assembly-lines">
+<meta property="og:image" content="https://cdn.modrinth.com/data/SoWP7zzK/fbd3c03a8383a419433f1a01406c86ad2a657f67_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Assembly Line">
+<meta name="twitter:description" content="Assembly Line is a mod that focuses on automation of factory-like environments in feel with the old voltz mod">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/SoWP7zzK/fbd3c03a8383a419433f1a01406c86ad2a657f67_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=assembly-lines");
+</script>
+</body>
+</html>

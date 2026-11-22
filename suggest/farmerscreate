@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FarmersCreate — Suggest a Mod</title>
+<meta name="description" content="A compatibility mod between Farmer&#x27;s Delight cutting/cooking recipes and Create">
+<link rel="canonical" href="https://kubabin.dev/suggest/farmerscreate">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="FarmersCreate">
+<meta property="og:description" content="A compatibility mod between Farmer&#x27;s Delight cutting/cooking recipes and Create">
+<meta property="og:url" content="https://kubabin.dev/suggest/farmerscreate">
+<meta property="og:image" content="https://cdn.modrinth.com/data/2r5FpH8p/8cdb1bbff821ec750fd0bd523733ebc814d5336a.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FarmersCreate">
+<meta name="twitter:description" content="A compatibility mod between Farmer&#x27;s Delight cutting/cooking recipes and Create">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/2r5FpH8p/8cdb1bbff821ec750fd0bd523733ebc814d5336a.png">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=farmerscreate");
+</script>
+</body>
+</html>

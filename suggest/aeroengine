@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AeroEngine — Suggest a Mod</title>
+<meta name="description" content="AeroEngine is a Create addon that adds modular aircraft engines and a pilot HUD for flight control and navigation.">
+<link rel="canonical" href="https://kubabin.dev/suggest/aeroengine">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="AeroEngine">
+<meta property="og:description" content="AeroEngine is a Create addon that adds modular aircraft engines and a pilot HUD for flight control and navigation.">
+<meta property="og:url" content="https://kubabin.dev/suggest/aeroengine">
+<meta property="og:image" content="https://cdn.modrinth.com/data/CRh10iJF/63695d0911804503f4416a4396a926602aa3f986_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AeroEngine">
+<meta name="twitter:description" content="AeroEngine is a Create addon that adds modular aircraft engines and a pilot HUD for flight control and navigation.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/CRh10iJF/63695d0911804503f4416a4396a926602aa3f986_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=aeroengine");
+</script>
+</body>
+</html>

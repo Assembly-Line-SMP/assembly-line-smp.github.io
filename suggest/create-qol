@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create: Quality of Life — Suggest a Mod</title>
+<meta name="description" content="Adds quality of life things for Create Mod">
+<link rel="canonical" href="https://kubabin.dev/suggest/create-qol">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create: Quality of Life">
+<meta property="og:description" content="Adds quality of life things for Create Mod">
+<meta property="og:url" content="https://kubabin.dev/suggest/create-qol">
+<meta property="og:image" content="https://cdn.modrinth.com/data/hezpkOYP/7132d22378eaf67da63e7434a1d94625d45f71b3_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create: Quality of Life">
+<meta name="twitter:description" content="Adds quality of life things for Create Mod">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/hezpkOYP/7132d22378eaf67da63e7434a1d94625d45f71b3_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=create-qol");
+</script>
+</body>
+</html>

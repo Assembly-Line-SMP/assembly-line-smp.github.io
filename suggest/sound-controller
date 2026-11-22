@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sound Controller — Suggest a Mod</title>
+<meta name="description" content="Have complete control over the volume of every sound in the game, with both global and region-based audio controls.">
+<link rel="canonical" href="https://kubabin.dev/suggest/sound-controller">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Sound Controller">
+<meta property="og:description" content="Have complete control over the volume of every sound in the game, with both global and region-based audio controls.">
+<meta property="og:url" content="https://kubabin.dev/suggest/sound-controller">
+<meta property="og:image" content="https://cdn.modrinth.com/data/uY9zbflw/c20f0a6ac542e9c147e452b57211ea85e717c19b.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sound Controller">
+<meta name="twitter:description" content="Have complete control over the volume of every sound in the game, with both global and region-based audio controls.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/uY9zbflw/c20f0a6ac542e9c147e452b57211ea85e717c19b.png">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=sound-controller");
+</script>
+</body>
+</html>

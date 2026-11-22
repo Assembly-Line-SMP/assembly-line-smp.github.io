@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analog Audio — Suggest a Mod</title>
+<meta name="description" content="Bring the warm comfort of analog audio mediums to your world! Integrates with Create Aeronautics, Sable, Voice Chat, and more!">
+<link rel="canonical" href="https://kubabin.dev/suggest/analog-audio">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Analog Audio">
+<meta property="og:description" content="Bring the warm comfort of analog audio mediums to your world! Integrates with Create Aeronautics, Sable, Voice Chat, and more!">
+<meta property="og:url" content="https://kubabin.dev/suggest/analog-audio">
+<meta property="og:image" content="https://cdn.modrinth.com/data/iMAVG2nH/cf52a4d67d4853e48493eb5fd3d07f81b5e9ee07_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Analog Audio">
+<meta name="twitter:description" content="Bring the warm comfort of analog audio mediums to your world! Integrates with Create Aeronautics, Sable, Voice Chat, and more!">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/iMAVG2nH/cf52a4d67d4853e48493eb5fd3d07f81b5e9ee07_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=analog-audio");
+</script>
+</body>
+</html>

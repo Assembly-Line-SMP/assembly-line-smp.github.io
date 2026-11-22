@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Deco — Suggest a Mod</title>
+<meta name="description" content="Industrial decoration themed around the aesthetics of the Create mod.">
+<link rel="canonical" href="https://kubabin.dev/suggest/create-deco">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Create Deco">
+<meta property="og:description" content="Industrial decoration themed around the aesthetics of the Create mod.">
+<meta property="og:url" content="https://kubabin.dev/suggest/create-deco">
+<meta property="og:image" content="https://cdn.modrinth.com/data/sMvUb4Rb/b60e1330b10bd1d7b1f2c0b7337a25f73b0eb555_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Create Deco">
+<meta name="twitter:description" content="Industrial decoration themed around the aesthetics of the Create mod.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/sMvUb4Rb/b60e1330b10bd1d7b1f2c0b7337a25f73b0eb555_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=create-deco");
+</script>
+</body>
+</html>

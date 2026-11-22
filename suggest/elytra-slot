@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elytra Slot — Suggest a Mod</title>
+<meta name="description" content="Adds accessory support to the elytra so you can fly and wear chest armor at the same time. Formerly known as Curious Elytra and Elytra Trinket.">
+<link rel="canonical" href="https://kubabin.dev/suggest/elytra-slot">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Elytra Slot">
+<meta property="og:description" content="Adds accessory support to the elytra so you can fly and wear chest armor at the same time. Formerly known as Curious Elytra and Elytra Trinket.">
+<meta property="og:url" content="https://kubabin.dev/suggest/elytra-slot">
+<meta property="og:image" content="https://cdn.modrinth.com/data/mSQF1NpT/b59d48e0111456cac90a18e4edc0b0d9727414a2.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Elytra Slot">
+<meta name="twitter:description" content="Adds accessory support to the elytra so you can fly and wear chest armor at the same time. Formerly known as Curious Elytra and Elytra Trinket.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/mSQF1NpT/b59d48e0111456cac90a18e4edc0b0d9727414a2.png">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=elytra-slot");
+</script>
+</body>
+</html>

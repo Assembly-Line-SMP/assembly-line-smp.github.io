@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customizable Player Models — Suggest a Mod</title>
+<meta name="description" content="Customize your minecraft avatar!">
+<link rel="canonical" href="https://kubabin.dev/suggest/custom-player-models">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Customizable Player Models">
+<meta property="og:description" content="Customize your minecraft avatar!">
+<meta property="og:url" content="https://kubabin.dev/suggest/custom-player-models">
+<meta property="og:image" content="https://cdn.modrinth.com/data/h1E7sQNL/e9535e89447a025e014f9a319d752861982f97fa_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Customizable Player Models">
+<meta name="twitter:description" content="Customize your minecraft avatar!">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/h1E7sQNL/e9535e89447a025e014f9a319d752861982f97fa_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=custom-player-models");
+</script>
+</body>
+</html>

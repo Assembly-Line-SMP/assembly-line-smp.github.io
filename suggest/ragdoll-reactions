@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ragdoll Reactions — Suggest a Mod</title>
+<meta name="description" content="Players ragdoll in reaction to the world around them! Crashes, sudden stops, and more!">
+<link rel="canonical" href="https://kubabin.dev/suggest/ragdoll-reactions">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Ragdoll Reactions">
+<meta property="og:description" content="Players ragdoll in reaction to the world around them! Crashes, sudden stops, and more!">
+<meta property="og:url" content="https://kubabin.dev/suggest/ragdoll-reactions">
+<meta property="og:image" content="https://cdn.modrinth.com/data/6awFMFjR/08469fa5ef0d672d4fd8fff0590a2ad58f360d40_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Ragdoll Reactions">
+<meta name="twitter:description" content="Players ragdoll in reaction to the world around them! Crashes, sudden stops, and more!">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/6awFMFjR/08469fa5ef0d672d4fd8fff0590a2ad58f360d40_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=ragdoll-reactions");
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAP ur Homies! — Suggest a Mod</title>
+<meta name="description" content="You can now DAP ur Homies! YEET them Catch them and more Coop Features">
+<link rel="canonical" href="https://kubabin.dev/suggest/dap-ur-homies">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="DAP ur Homies!">
+<meta property="og:description" content="You can now DAP ur Homies! YEET them Catch them and more Coop Features">
+<meta property="og:url" content="https://kubabin.dev/suggest/dap-ur-homies">
+<meta property="og:image" content="https://cdn.modrinth.com/data/V3QHTHDA/0ecabd59fcb74831b1c2ae1fe0f3054362456f2d_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DAP ur Homies!">
+<meta name="twitter:description" content="You can now DAP ur Homies! YEET them Catch them and more Coop Features">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/V3QHTHDA/0ecabd59fcb74831b1c2ae1fe0f3054362456f2d_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=dap-ur-homies");
+</script>
+</body>
+</html>

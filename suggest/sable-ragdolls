@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sable: Ragdolls — Suggest a Mod</title>
+<meta name="description" content="Ragdolls powered by Sable&#x27;s physics system">
+<link rel="canonical" href="https://kubabin.dev/suggest/sable-ragdolls">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Sable: Ragdolls">
+<meta property="og:description" content="Ragdolls powered by Sable&#x27;s physics system">
+<meta property="og:url" content="https://kubabin.dev/suggest/sable-ragdolls">
+<meta property="og:image" content="https://cdn.modrinth.com/data/I3mWDgfy/e90021993c2642bbd40ae3e9c9e994a77f3c6d7f_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sable: Ragdolls">
+<meta name="twitter:description" content="Ragdolls powered by Sable&#x27;s physics system">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/I3mWDgfy/e90021993c2642bbd40ae3e9c9e994a77f3c6d7f_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=sable-ragdolls");
+</script>
+</body>
+</html>

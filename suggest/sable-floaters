@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sable: Floaters — Suggest a Mod</title>
+<meta name="description" content="a simple add-on for sable that adds elements to help the ship stay afloat.">
+<link rel="canonical" href="https://kubabin.dev/suggest/sable-floaters">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Sable: Floaters">
+<meta property="og:description" content="a simple add-on for sable that adds elements to help the ship stay afloat.">
+<meta property="og:url" content="https://kubabin.dev/suggest/sable-floaters">
+<meta property="og:image" content="https://cdn.modrinth.com/data/kjqs1O8F/bd3da4ee9797b4db94b30ce415155f5859c57b45_96.webp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sable: Floaters">
+<meta name="twitter:description" content="a simple add-on for sable that adds elements to help the ship stay afloat.">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/kjqs1O8F/bd3da4ee9797b4db94b30ce415155f5859c57b45_96.webp">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=sable-floaters");
+</script>
+</body>
+</html>

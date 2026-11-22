@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harvest — Suggest a Mod</title>
+<meta name="description" content="Break fully grown crops by right-clicking them">
+<link rel="canonical" href="https://kubabin.dev/suggest/harvest">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Harvest">
+<meta property="og:description" content="Break fully grown crops by right-clicking them">
+<meta property="og:url" content="https://kubabin.dev/suggest/harvest">
+<meta property="og:image" content="https://cdn.modrinth.com/data/1DgT4iww/171c3a89fa68911675ede2a6ee034efda115559a.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Harvest">
+<meta name="twitter:description" content="Break fully grown crops by right-clicking them">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/1DgT4iww/171c3a89fa68911675ede2a6ee034efda115559a.png">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=harvest");
+</script>
+</body>
+</html>

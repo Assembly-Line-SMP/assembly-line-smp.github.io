@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storage Drawers — Suggest a Mod</title>
+<meta name="description" content="Interactive bulk storage solution">
+<link rel="canonical" href="https://kubabin.dev/suggest/storagedrawers">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Assembly Line SMP">
+<meta property="og:title" content="Storage Drawers">
+<meta property="og:description" content="Interactive bulk storage solution">
+<meta property="og:url" content="https://kubabin.dev/suggest/storagedrawers">
+<meta property="og:image" content="https://cdn.modrinth.com/data/guitPqEi/58b4229c52876eff66c9f98a5d2a1e9b9f648501.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Storage Drawers">
+<meta name="twitter:description" content="Interactive bulk storage solution">
+<meta name="twitter:image" content="https://cdn.modrinth.com/data/guitPqEi/58b4229c52876eff66c9f98a5d2a1e9b9f648501.png">
+</head>
+<body>
+<script>
+window.location.replace("/suggest/suggestion.html?slug=storagedrawers");
+</script>
+</body>
+</html>
