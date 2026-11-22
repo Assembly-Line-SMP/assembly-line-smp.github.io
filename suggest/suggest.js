@@ -303,7 +303,9 @@ function renderSuggestionCard(s) {
         ${badge}
       </div>
       <p class="suggestion-card__desc">${escapeHtml(s.description || "")}</p>
-      <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")}</p>
+      <p class="suggestion-card__meta">Suggested by ${s.suggested_by_discord_id
+        ? `<button type="button" class="suggestion-author" data-discord-id="${escapeHtml(s.suggested_by_discord_id)}">${escapeHtml(s.suggested_by || "someone")}</button>`
+        : escapeHtml(s.suggested_by || "someone")}</p>
       ${s.suggestion_reason ? `<p class="suggestion-card__reason"><strong>Why:</strong> ${escapeHtml(s.suggestion_reason)}</p>` : ""}
       ${status === "rejected" && s.rejection_reason ? `<p class="suggestion-card__reason suggestion-card__reason--rejection"><strong>Rejected:</strong> ${escapeHtml(s.rejection_reason)}</p>` : ""}
     </div>
@@ -328,6 +330,58 @@ function renderSuggestionCard(s) {
     if (event.currentTarget.open) loadComments(s.id, social);
   });
   card.appendChild(social);
+
+  const socialActions = document.createElement("div");
+  socialActions.className = "suggestion-social-actions";
+  socialActions.innerHTML = `
+    ${currentUser ? `<button type="button" class="suggestion-watch" title="Watch for status updates"><span class="material-symbols-rounded">notifications</span></button>` : ""}
+    ${currentUser ? `<button type="button" class="suggestion-reaction" data-emoji="👍" title="React thumbs up">👍</button><button type="button" class="suggestion-reaction" data-emoji="❤️" title="React heart">❤️</button>` : ""}
+  `;
+  const watchButton = socialActions.querySelector(".suggestion-watch");
+  if (watchButton) {
+    watchButton.addEventListener("click", async (event) => {
+      event.stopPropagation();
+      const watching = watchButton.classList.toggle("is-active");
+      const res = await fetch(`${API_BASE}/suggestions/${s.id}/watch`, {
+        method: watching ? "POST" : "DELETE",
+        credentials: "include",
+      });
+      if (!res.ok) {
+        watchButton.classList.toggle("is-active", !watching);
+        showToast("Couldn't update watch status.");
+      } else {
+        showToast(watching ? "You’re watching this suggestion." : "Watch removed.");
+      }
+    });
+  }
+  socialActions.querySelectorAll(".suggestion-reaction").forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.stopPropagation();
+      const res = await fetch(`${API_BASE}/suggestions/${s.id}/reactions`, {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ emoji: button.dataset.emoji }),
+      });
+      if (res.ok) {
+        button.classList.toggle("is-active");
+        showToast("Reaction updated.");
+      } else {
+        showToast("Couldn't update reaction.");
+      }
+    });
+  });
+  card.appendChild(socialActions);
+
+  card.querySelectorAll(".suggestion-author").forEach((button) => {
+    button.addEventListener("click", async (event) => {
+      event.stopPropagation();
+      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(button.dataset.discordId)}`);
+      if (!res.ok) return showToast("Couldn't load profile.");
+      const profile = await res.json();
+      showToast(`${profile.username} · ${profile.suggestion_count} suggestions · ${profile.approved_count} approved · ${profile.vote_count} votes${profile.badges.length ? ` · ${profile.badges.join(", ")}` : ""}`);
+    });
+  });
 
   const shareButton = document.createElement("button");
   shareButton.className = "suggestion-share";
@@ -360,13 +414,19 @@ async function castVote(suggestionId, direction) {
     showToast("Voting is closed for this suggestion.");
     return;
   }
+  let reason = null;
+  if (direction === "down") {
+    reason = window.prompt("Optional reason for your downvote", "");
+    if (reason === null) return;
+    reason = reason.trim();
+  }
 
   try {
     const res = await fetch(`${API_BASE}/suggestions/${suggestionId}/vote`, {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ direction }),
+      body: JSON.stringify({ direction, reason }),
     });
     if (!res.ok) throw new Error("vote failed");
     const updated = await res.json();

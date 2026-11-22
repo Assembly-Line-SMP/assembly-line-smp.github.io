@@ -328,6 +328,15 @@
   margin: 4px 0 0;
 }
 
+.suggestion-author {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--md-sys-color-primary);
+  font: inherit;
+  cursor: pointer;
+}
+
 .suggestion-card__reason {
   margin: 7px 0 0;
   font-size: 12px;
@@ -446,6 +455,32 @@
   background: var(--md-sys-color-primary);
   color: var(--md-sys-color-on-primary);
   cursor: pointer;
+}
+
+.suggestion-social-actions {
+  flex-basis: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.suggestion-social-actions button {
+  min-width: 34px;
+  height: 34px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 100px;
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  display: inline-grid;
+  place-items: center;
+}
+
+.suggestion-social-actions button.is-active {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-color: transparent;
 }
 
 /* ---------- Reddit-style vote control ---------- */
