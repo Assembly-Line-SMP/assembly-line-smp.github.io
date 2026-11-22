@@ -258,7 +258,13 @@ function renderComment(comment, comments) {
         </div>`}
     </div>
   `;
-  comments.filter((reply) => reply.parent_id === comment.id).forEach((reply) => item.appendChild(renderComment(reply, comments)));
+  const replies = comments.filter((reply) => reply.parent_id === comment.id);
+  if (replies.length) {
+    const repliesEl = document.createElement("div");
+    repliesEl.className = "suggestion-comment-replies";
+    replies.forEach((reply) => repliesEl.appendChild(renderComment(reply, comments)));
+    item.querySelector(".suggestion-comment__body").appendChild(repliesEl);
+  }
   item.querySelectorAll("[data-action]").forEach((button) => button.addEventListener("click", () => commentAction(comment, button.dataset.action)));
   return item;
 }

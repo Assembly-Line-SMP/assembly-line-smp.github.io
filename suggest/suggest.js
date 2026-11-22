@@ -410,7 +410,12 @@ function renderComment(suggestionId, comment, allComments) {
   `;
 
   const replies = allComments.filter((reply) => reply.parent_id === comment.id);
-  replies.forEach((reply) => item.appendChild(renderComment(suggestionId, reply, allComments)));
+  if (replies.length) {
+    const repliesEl = document.createElement("div");
+    repliesEl.className = "suggestion-comment-replies";
+    replies.forEach((reply) => repliesEl.appendChild(renderComment(suggestionId, reply, allComments)));
+    item.querySelector(".suggestion-comment__body").appendChild(repliesEl);
+  }
 
   item.querySelectorAll("[data-comment-action]").forEach((button) => {
     button.addEventListener("click", () => handleCommentAction(suggestionId, comment, button.dataset.commentAction, item));

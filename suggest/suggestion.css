@@ -104,6 +104,29 @@
   padding-top: 14px;
 }
 
+.suggestion-detail-discussion #detail-comments {
+  min-width: 0;
+}
+
+.suggestion-comment-replies {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px 0 0 12px;
+  border-left: 2px solid var(--md-sys-color-outline-variant);
+}
+
+.suggestion-comment-replies .suggestion-comment {
+  margin-top: 0;
+}
+
+.suggestion-detail-discussion .suggestion-comment,
+.suggestion-detail-discussion .suggestion-comment__body,
+.suggestion-detail-discussion .suggestion-comment__body div {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 680px) {
   .suggestion-detail-head {
     grid-template-columns: 52px minmax(0, 1fr);

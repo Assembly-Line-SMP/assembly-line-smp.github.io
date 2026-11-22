@@ -420,6 +420,7 @@
 .suggestion-comment__body {
   min-width: 0;
   color: var(--md-sys-color-on-surface);
+  overflow-wrap: anywhere;
 }
 
 .suggestion-comment__body p {
@@ -436,6 +437,18 @@
 
 .suggestion-comment__body .suggestion-comment {
   margin-left: 10px;
+}
+
+.suggestion-comment-replies {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 10px 0 0 12px;
+  border-left: 2px solid var(--md-sys-color-outline-variant);
+}
+
+.suggestion-comment-replies .suggestion-comment {
+  margin-top: 0;
 }
 
 .suggestion-comment__actions {
