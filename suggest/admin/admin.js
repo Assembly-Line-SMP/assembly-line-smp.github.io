@@ -265,7 +265,6 @@ function renderUserCard(user) {
         ${user.shadow_banned ? `<b>Shadow-banned</b>` : ""}
       </div>
       <div class="admin-card-actions admin-user-actions">
-        <button class="admin-clear-votes" title="Remove all of this user's votes" aria-label="Remove all votes"><span class="material-symbols-rounded">how_to_vote</span></button>
         <button class="admin-shadow-ban" title="${user.shadow_banned ? "Remove shadow ban" : "Shadow-ban user"}" aria-label="${user.shadow_banned ? "Remove shadow ban" : "Shadow-ban user"}">
           <span class="material-symbols-rounded">${user.shadow_banned ? "person_check" : "person_off"}</span>
         </button>
@@ -276,16 +275,6 @@ function renderUserCard(user) {
       <div class="admin-user-activity"><p class="suggest-empty">Open to load activity.</p></div>
     </details>
   `;
-
-  card.querySelector(".admin-clear-votes").addEventListener("click", async () => {
-    if (!confirm(`Remove all votes by ${user.username}?`)) return;
-    const res = await fetch(`${API_BASE}/admin/users/${encodeURIComponent(user.discord_id)}/votes`, {
-      method: "DELETE", headers: authHeaders(),
-    });
-    if (!res.ok) return showToast("Couldn't remove votes.");
-    showToast("User votes removed.");
-    await Promise.all([loadUsers(), loadAdminList()]);
-  });
 
   card.querySelector(".admin-shadow-ban").addEventListener("click", async () => {
     const action = user.shadow_banned ? "unban" : "shadow-ban";
@@ -416,10 +405,6 @@ function renderAdminCard(s) {
         <button class="admin-delete" title="Delete suggestion" aria-label="Delete suggestion"><span class="material-symbols-rounded">delete</span></button>
       </div>
     </div>
-    <details class="admin-vote-manager">
-      <summary>Manage votes · ${s.upvotes + s.downvotes} total</summary>
-      <div class="admin-vote-list"><p class="suggest-empty">Open to load votes.</p></div>
-    </details>
   `;
 
   const approveBtn = card.querySelector(".admin-approve");
@@ -434,45 +419,6 @@ function renderAdminCard(s) {
   card.querySelector(".admin-pin").addEventListener("click", () => setPinned(s.id, !s.pinned));
   card.querySelector(".admin-delete").addEventListener("click", () => deleteSuggestion(s.id));
 
-  const voteDetails = card.querySelector(".admin-vote-manager");
-  const voteList = card.querySelector(".admin-vote-list");
-  voteDetails.addEventListener("toggle", async (event) => {
-    if (!event.currentTarget.open || event.currentTarget.dataset.loaded) return;
-    event.currentTarget.dataset.loaded = "true";
-    const res = await fetch(`${API_BASE}/admin/suggestions/${s.id}/votes`, { headers: authHeaders() });
-    if (!res.ok) {
-      voteList.innerHTML = `<p class="suggest-empty">Couldn't load votes.</p>`;
-      return;
-    }
-    const data = await res.json();
-    if (!data.votes.length) {
-      voteList.innerHTML = `<p class="suggest-empty">No votes to manage.</p>`;
-      return;
-    }
-    voteList.innerHTML = data.votes.map((vote) => `
-      <div class="admin-voter-row" data-user="${escapeHtml(vote.discord_id)}">
-        <div><strong>${escapeHtml(vote.username || "Unknown user")}</strong><code>${escapeHtml(vote.discord_id)}</code></div>
-        <span class="admin-voter-direction">${vote.direction === "up" ? "Upvote" : "Downvote"}</span>
-        <div class="admin-voter-actions">
-          <button data-direction="up" title="Set upvote" aria-label="Set upvote" class="${vote.direction === "up" ? "is-selected" : ""}"><span class="material-symbols-rounded">thumb_up</span></button>
-          <button data-direction="down" title="Set downvote" aria-label="Set downvote" class="${vote.direction === "down" ? "is-selected" : ""}"><span class="material-symbols-rounded">thumb_down</span></button>
-          <button data-direction="null" title="Remove vote" aria-label="Remove vote"><span class="material-symbols-rounded">delete</span></button>
-        </div>
-      </div>`).join("");
-    voteList.querySelectorAll(".admin-voter-row").forEach((row) => {
-      row.querySelectorAll("button").forEach((button) => button.addEventListener("click", async () => {
-        const direction = button.dataset.direction === "null" ? null : button.dataset.direction;
-        const update = await fetch(`${API_BASE}/admin/suggestions/${s.id}/votes/${encodeURIComponent(row.dataset.user)}`, {
-          method: "PATCH",
-          headers: { ...authHeaders(), "Content-Type": "application/json" },
-          body: JSON.stringify({ direction }),
-        });
-        if (!update.ok) return showToast("Vote update failed.");
-        showToast(direction ? `Vote changed to ${direction}.` : "Vote removed.");
-        await Promise.all([loadAdminList(), loadUsers()]);
-      }));
-    });
-  });
   return card;
 }
 

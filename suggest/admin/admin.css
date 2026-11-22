@@ -227,11 +227,6 @@
 }
 
 .admin-user-card__identity code,
-.admin-voter-row code {
-  color: var(--md-sys-color-on-surface-variant);
-  font-size: 11px;
-}
-
 .admin-user-card__identity span,
 .admin-user-card__stats {
   color: var(--md-sys-color-on-surface-variant);
@@ -247,8 +242,7 @@
   color: #ffffff;
 }
 
-.admin-user-details,
-.admin-vote-manager {
+.admin-user-details {
   margin: 12px 0 0;
   border-top: 1px solid var(--md-sys-color-outline-variant);
   padding-top: 10px;
@@ -256,8 +250,7 @@
   font-size: 13px;
 }
 
-.admin-user-details summary,
-.admin-vote-manager summary {
+.admin-user-details summary {
   cursor: pointer;
   font-weight: 600;
 }
@@ -298,53 +291,6 @@
   display: flex;
   align-items: center;
   gap: 16px;
-}
-
-.admin-voter-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--md-sys-color-outline-variant);
-}
-
-.admin-voter-row > div:first-child {
-  display: grid;
-  min-width: 0;
-  flex: 1;
-  gap: 2px;
-}
-
-.admin-voter-row strong {
-  overflow: hidden;
-  color: var(--md-sys-color-on-surface);
-  text-overflow: ellipsis;
-}
-
-.admin-voter-direction {
-  min-width: 72px;
-}
-
-.admin-voter-actions {
-  display: flex;
-  gap: 4px;
-}
-
-.admin-voter-actions button {
-  width: 32px;
-  height: 32px;
-  border: 0;
-  border-radius: 6px;
-  display: grid;
-  place-items: center;
-  background: var(--md-sys-color-surface-container-high);
-  color: var(--md-sys-color-on-surface-variant);
-  cursor: pointer;
-}
-
-.admin-voter-actions button.is-selected {
-  background: var(--md-sys-color-secondary-container);
-  color: var(--md-sys-color-on-secondary-container);
 }
 
 .admin-reports-list {
@@ -486,14 +432,5 @@
 
   .admin-suggestion-main .admin-card-actions {
     flex-direction: column;
-  }
-
-  .admin-voter-row {
-    flex-wrap: wrap;
-  }
-
-  .admin-voter-direction {
-    order: 2;
-    flex: 1;
   }
 }
