@@ -84,6 +84,7 @@ function enterAdmin() {
   loadAdminList();
   loadUsers();
   loadExistingModsCount();
+  loadReports();
 }
 
 /* ---------- Existing mods (duplicate check) sync ---------- */
@@ -401,6 +402,8 @@ function renderAdminCard(s) {
         </div>
         <p class="suggestion-card__desc">${escapeHtml(s.description || "")}</p>
         <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")} · ${s.upvotes}↑ ${s.downvotes}↓ (net ${net})</p>
+        ${s.suggestion_reason ? `<p class="suggestion-card__reason"><strong>Why:</strong> ${escapeHtml(s.suggestion_reason)}</p>` : ""}
+        ${status === "rejected" && s.rejection_reason ? `<p class="suggestion-card__reason suggestion-card__reason--rejection"><strong>Rejected:</strong> ${escapeHtml(s.rejection_reason)}</p>` : ""}
       </div>
       <div class="admin-card-actions">
         ${status !== "approved" ? `<button class="admin-approve" title="Approve suggestion" aria-label="Approve suggestion"><span class="material-symbols-rounded">check</span></button>` : `<button class="admin-unapprove" title="Revert to pending" aria-label="Revert to pending"><span class="material-symbols-rounded">undo</span></button>`}
@@ -467,10 +470,20 @@ function renderAdminCard(s) {
 }
 
 async function setStatus(id, status) {
+  let rejectionReason = "";
+  if (status === "rejected") {
+    rejectionReason = window.prompt("Reason for rejection", "");
+    if (rejectionReason === null) return;
+    rejectionReason = rejectionReason.trim();
+    if (!rejectionReason) {
+      showToast("A rejection reason is required.");
+      return;
+    }
+  }
   const res = await fetch(`${API_BASE}/admin/suggestions/${id}`, {
     method: "PATCH",
     headers: { ...authHeaders(), "Content-Type": "application/json" },
-    body: JSON.stringify({ status }),
+    body: JSON.stringify({ status, rejection_reason: rejectionReason }),
   });
   if (res.ok) {
     showToast(status === "approved"
@@ -496,6 +509,68 @@ async function deleteSuggestion(id) {
   } else {
     showToast("Delete failed.");
   }
+}
+
+const reportsListEl = document.getElementById("admin-reports");
+document.getElementById("reports-refresh").addEventListener("click", loadReports);
+
+async function loadReports() {
+  const res = await fetch(`${API_BASE}/admin/reports`, { headers: authHeaders() });
+  if (!res.ok) {
+    reportsListEl.innerHTML = `<p class="suggest-empty">Couldn't load reports.</p>`;
+    return;
+  }
+  const data = await res.json();
+  const reports = data.reports || [];
+  if (!reports.length) {
+    reportsListEl.innerHTML = `<p class="suggest-empty">No reports.</p>`;
+    return;
+  }
+  reportsListEl.innerHTML = "";
+  reports.forEach((report) => {
+    const card = document.createElement("article");
+    card.className = `admin-report-card${report.status === "open" ? " admin-report-card--open" : ""}`;
+    card.innerHTML = `
+      <div>
+        <strong>${report.comment_id ? "Reported comment" : "Reported suggestion"}</strong>
+        <p>${escapeHtml(report.suggestion_title || "Unknown suggestion")}</p>
+        ${report.comment_body ? `<blockquote>${escapeHtml(report.comment_body)}</blockquote>` : ""}
+        ${report.reason ? `<p><b>Reason:</b> ${escapeHtml(report.reason)}</p>` : "<p>No reason provided.</p>"}
+        <code>${escapeHtml(report.status)} · ${escapeHtml(new Date(report.created_at * 1000).toLocaleString())}</code>
+      </div>
+      ${report.status === "open" ? `
+        <div class="admin-report-actions">
+          ${report.comment_id ? `<button data-report-action="delete-comment" title="Delete reported comment" aria-label="Delete reported comment"><span class="material-symbols-rounded">delete</span></button>` : ""}
+          <button data-report-action="resolve" title="Resolve report" aria-label="Resolve report"><span class="material-symbols-rounded">check</span></button>
+          <button data-report-action="dismiss" title="Dismiss report" aria-label="Dismiss report"><span class="material-symbols-rounded">close</span></button>
+        </div>` : ""}
+    `;
+    card.querySelectorAll("[data-report-action]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const action = button.dataset.reportAction;
+        if (action === "delete-comment" && !confirm("Delete the reported comment?")) return;
+        if (action === "delete-comment") {
+          await fetch(`${API_BASE}/admin/suggestions/${report.suggestion_id}/comments/${report.comment_id}`, {
+            method: "DELETE",
+            headers: authHeaders(),
+          });
+        }
+        const status = action === "dismiss" ? "dismissed" : "resolved";
+        const res = await fetch(`${API_BASE}/admin/reports/${report.id}`, {
+          method: "PATCH",
+          headers: { ...authHeaders(), "Content-Type": "application/json" },
+          body: JSON.stringify({ status }),
+        });
+        if (res.ok) {
+          showToast(action === "dismiss" ? "Report dismissed." : "Report resolved.");
+          await loadReports();
+        } else {
+          showToast("Couldn't update report.");
+        }
+      });
+    });
+    reportsListEl.appendChild(card);
+  });
 }
 
 function getAdminSuggestionStatus(suggestion) {

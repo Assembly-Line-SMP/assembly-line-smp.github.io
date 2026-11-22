@@ -174,6 +174,8 @@ function renderSearchResults(hits) {
 
 async function submitSuggestion(hit) {
   if (!requireLogin()) return;
+  const suggestionReason = window.prompt("Why would you like this mod? (optional)", "");
+  if (suggestionReason === null) return;
 
   try {
     const res = await fetch(`${API_BASE}/suggestions`, {
@@ -185,6 +187,7 @@ async function submitSuggestion(hit) {
         title: hit.title,
         description: hit.description,
         icon_url: hit.icon_url,
+        suggestion_reason: suggestionReason.trim(),
       }),
     });
 
@@ -301,6 +304,8 @@ function renderSuggestionCard(s) {
       </div>
       <p class="suggestion-card__desc">${escapeHtml(s.description || "")}</p>
       <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")}</p>
+      ${s.suggestion_reason ? `<p class="suggestion-card__reason"><strong>Why:</strong> ${escapeHtml(s.suggestion_reason)}</p>` : ""}
+      ${status === "rejected" && s.rejection_reason ? `<p class="suggestion-card__reason suggestion-card__reason--rejection"><strong>Rejected:</strong> ${escapeHtml(s.rejection_reason)}</p>` : ""}
     </div>
     <div class="vote-control">
       <button class="vote-up ${userVote === "up" ? "vote-active--up" : ""}" aria-label="Upvote" ${votingDisabled ? "disabled" : ""}>
@@ -312,6 +317,35 @@ function renderSuggestionCard(s) {
       </button>
     </div>
   `;
+
+  const social = document.createElement("details");
+  social.className = "suggestion-social";
+  social.innerHTML = `
+    <summary>Discussion</summary>
+    <div class="suggestion-comments"></div>
+  `;
+  social.addEventListener("toggle", (event) => {
+    if (event.currentTarget.open) loadComments(s.id, social);
+  });
+  card.appendChild(social);
+
+  const shareButton = document.createElement("button");
+  shareButton.className = "suggestion-share";
+  shareButton.type = "button";
+  shareButton.title = "Copy suggestion link";
+  shareButton.innerHTML = `<span class="material-symbols-rounded">share</span>`;
+  shareButton.addEventListener("click", async (event) => {
+    event.stopPropagation();
+    const url = new URL(window.location.href);
+    url.hash = `suggestion-${s.id}`;
+    try {
+      await navigator.clipboard.writeText(url.toString());
+      showToast("Suggestion link copied.");
+    } catch {
+      showToast("Couldn't copy the link.");
+    }
+  });
+  card.querySelector(".suggestion-card__body").appendChild(shareButton);
 
   card.querySelector(".vote-up").addEventListener("click", () => castVote(s.id, "up"));
   card.querySelector(".vote-down").addEventListener("click", () => castVote(s.id, "down"));
@@ -349,6 +383,124 @@ async function castVote(suggestionId, direction) {
     renderSuggestions();
   } catch {
     showToast("Couldn't record your vote. Try again.");
+  }
+}
+
+/* ---------- Comments and reports ---------- */
+async function loadComments(suggestionId, container) {
+  const commentsEl = container.querySelector(".suggestion-comments");
+  commentsEl.innerHTML = `<p class="suggest-empty">Loading discussion…</p>`;
+  try {
+    const res = await fetch(`${API_BASE}/suggestions/${suggestionId}/comments`, { credentials: "include" });
+    if (!res.ok) throw new Error("load failed");
+    const data = await res.json();
+    renderComments(suggestionId, commentsEl, data.comments || []);
+  } catch {
+    commentsEl.innerHTML = `<p class="suggest-empty">Couldn't load discussion.</p>`;
+  }
+}
+
+function renderComments(suggestionId, commentsEl, comments) {
+  commentsEl.innerHTML = "";
+
+  comments.filter((comment) => !comment.parent_id).forEach((comment) => {
+    commentsEl.appendChild(renderComment(suggestionId, comment, comments));
+  });
+
+  const form = document.createElement("form");
+  form.className = "suggestion-comment-form";
+  form.innerHTML = `
+    <textarea maxlength="2000" placeholder="${currentUser ? "Join the discussion…" : "Log in to join the discussion"}" ${currentUser ? "" : "disabled"}></textarea>
+    <button type="submit" ${currentUser ? "" : "disabled"}>Post</button>
+  `;
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!requireLogin()) return;
+    await postComment(suggestionId, null, form.querySelector("textarea").value);
+    await loadComments(suggestionId, commentsEl.closest(".suggestion-social"));
+  });
+  commentsEl.appendChild(form);
+}
+
+function renderComment(suggestionId, comment, allComments) {
+  const item = document.createElement("article");
+  item.className = `suggestion-comment${comment.deleted ? " suggestion-comment--deleted" : ""}`;
+  item.innerHTML = `
+    ${comment.avatar_url ? `<img src="${escapeHtml(comment.avatar_url)}" alt="" />` : `<span class="suggestion-comment__avatar material-symbols-rounded">person</span>`}
+    <div class="suggestion-comment__body">
+      <p><strong>${escapeHtml(comment.deleted ? "Deleted comment" : comment.username)}</strong>
+      <span>${comment.created_at ? escapeHtml(new Date(comment.created_at * 1000).toLocaleString()) : ""}${comment.edited_at ? " · edited" : ""}</span></p>
+      ${comment.deleted ? `<em>Comment removed.</em>` : `<div>${escapeHtml(comment.body).replace(/\n/g, "<br>")}</div>`}
+      ${comment.deleted ? "" : `
+        <div class="suggestion-comment__actions">
+          ${currentUser ? `<button type="button" data-comment-action="reply">Reply</button>` : ""}
+          ${currentUser && currentUser.id === comment.discord_id ? `<button type="button" data-comment-action="edit">Edit</button><button type="button" data-comment-action="delete">Delete</button>` : ""}
+          ${currentUser ? `<button type="button" data-comment-action="report">Report</button>` : ""}
+        </div>`}
+    </div>
+  `;
+
+  const replies = allComments.filter((reply) => reply.parent_id === comment.id);
+  replies.forEach((reply) => item.appendChild(renderComment(suggestionId, reply, allComments)));
+
+  item.querySelectorAll("[data-comment-action]").forEach((button) => {
+    button.addEventListener("click", () => handleCommentAction(suggestionId, comment, button.dataset.commentAction, item));
+  });
+  return item;
+}
+
+async function postComment(suggestionId, parentId, body) {
+  const res = await fetch(`${API_BASE}/suggestions/${suggestionId}/comments`, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ body, parent_id: parentId }),
+  });
+  if (!res.ok) {
+    const data = await res.json().catch(() => ({}));
+    showToast(data.detail || "Couldn't post comment.");
+    return false;
+  }
+  return true;
+}
+
+async function handleCommentAction(suggestionId, comment, action, item) {
+  if (action === "reply") {
+    const body = window.prompt("Reply", "");
+    if (!body) return;
+    if (await postComment(suggestionId, comment.id, body)) {
+      const details = item.closest(".suggestion-social");
+      await loadComments(suggestionId, details);
+    }
+  } else if (action === "edit") {
+    const body = window.prompt("Edit comment", comment.body);
+    if (body === null || !body.trim()) return;
+    const res = await fetch(`${API_BASE}/suggestions/${suggestionId}/comments/${comment.id}`, {
+      method: "PATCH",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ body }),
+    });
+    if (res.ok) await loadComments(suggestionId, item.closest(".suggestion-social"));
+    else showToast("Couldn't edit comment.");
+  } else if (action === "delete") {
+    if (!confirm("Delete this comment?")) return;
+    const res = await fetch(`${API_BASE}/suggestions/${suggestionId}/comments/${comment.id}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if (res.ok) await loadComments(suggestionId, item.closest(".suggestion-social"));
+    else showToast("Couldn't delete comment.");
+  } else if (action === "report") {
+    const reason = window.prompt("Why are you reporting this comment?", "");
+    if (reason === null) return;
+    const res = await fetch(`${API_BASE}/suggestions/${suggestionId}/report`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reason, comment_id: comment.id }),
+    });
+    showToast(res.ok ? "Report submitted." : "Couldn't submit report.");
   }
 }
 

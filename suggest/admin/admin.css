@@ -347,6 +347,55 @@
   color: var(--md-sys-color-on-secondary-container);
 }
 
+.admin-reports-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.admin-report-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 12px;
+  background: var(--md-sys-color-surface-container-lowest);
+}
+
+.admin-report-card--open {
+  border-left: 3px solid #b7791f;
+}
+
+.admin-report-card blockquote {
+  margin: 8px 0;
+  padding: 6px 10px;
+  border-left: 3px solid var(--md-sys-color-outline);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.admin-report-card code {
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 11px;
+}
+
+.admin-report-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.admin-report-actions button {
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--md-sys-color-surface-container-high);
+  cursor: pointer;
+}
+
 @media (max-width: 680px) {
   .admin-settings__row,
   .suggest-list-section__head {
