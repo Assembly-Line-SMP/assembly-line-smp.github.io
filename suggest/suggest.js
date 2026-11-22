@@ -276,7 +276,7 @@ function renderSuggestionCard(s) {
   card.style.cursor = "pointer";
   card.addEventListener("click", (event) => {
     if (event.target.closest(".vote-control")) return;
-    window.location.href = `./suggestion.html?id=${encodeURIComponent(s.id)}`;
+    window.location.href = `./${encodeURIComponent(s.modrinth_slug || `suggestion-${s.id}`)}`;
   });
 
   const net = s.upvotes - s.downvotes;

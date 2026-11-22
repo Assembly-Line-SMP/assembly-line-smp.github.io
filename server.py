@@ -116,6 +116,19 @@ class LiveChatHandler(http.server.SimpleHTTPRequestHandler):
             self.serve_generic_proxy(f"https://raspi.kubabin.dev{self.path}", method="GET")
             return
 
+        # Individual suggestion pages are rendered by the backend so social
+        # crawlers receive mod-specific Open Graph metadata. Static files under
+        # /suggest/ are still served locally by the static-site branch below.
+        if request_path.startswith("/suggest/"):
+            remainder = request_path[len("/suggest/"):]
+            static_files = {
+                "base.css", "suggest.css", "suggestion.css",
+                "suggest.js", "suggestion.js", "index.html",
+            }
+            if remainder not in static_files and remainder not in {"", "admin/", "suggestion.html"}:
+                self.serve_generic_proxy(f"https://raspi.kubabin.dev{self.path}", method="GET")
+                return
+
         # /suggest itself (the page, its CSS/JS, and the admin panel) is a
         # plain static site — just serve its files.
         if request_path == "/suggest/" or request_path.startswith("/suggest/"):

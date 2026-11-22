@@ -61,17 +61,40 @@ function getStatus(item) {
 }
 
 async function loadSuggestion() {
-  const id = new URL(window.location.href).searchParams.get("id");
-  if (!id) {
+  const url = new URL(window.location.href);
+  const id = url.searchParams.get("id");
+  const slug = window.SUGGESTION_SLUG || url.searchParams.get("slug") || null;
+  if (!id && !slug) {
+    const slugFromPath = url.pathname.match(/\/suggest\/([^/]+)\/?$/)?.[1];
+    if (slugFromPath && !["suggestion.html", "index.html"].includes(slugFromPath)) {
+      const slugRes = await fetch(`${API_BASE}/suggestions/by-slug/${encodeURIComponent(slugFromPath)}`, { credentials: "include" });
+      if (!slugRes.ok) {
+        document.getElementById("detail-content").innerHTML = `<p class="suggest-empty">Couldn't load this suggestion.</p>`;
+        return;
+      }
+      suggestion = await slugRes.json();
+      document.title = `${suggestion.title} — Suggest a Mod`;
+      document.getElementById("detail-title").textContent = suggestion.title;
+      renderSuggestion();
+      return;
+    }
     document.getElementById("detail-content").innerHTML = `<p class="suggest-empty">Suggestion not found.</p>`;
     return;
   }
-  const res = await fetch(`${API_BASE}/suggestions/${encodeURIComponent(id)}`, { credentials: "include" });
+  const endpoint = slug
+    ? `${API_BASE}/suggestions/by-slug/${encodeURIComponent(slug)}`
+    : `${API_BASE}/suggestions/${encodeURIComponent(id)}`;
+  const res = await fetch(endpoint, { credentials: "include" });
   if (!res.ok) {
     document.getElementById("detail-content").innerHTML = `<p class="suggest-empty">Couldn't load this suggestion.</p>`;
     return;
   }
   suggestion = await res.json();
+  if (id && suggestion.modrinth_slug) {
+    history.replaceState(null, "", `/suggest/${encodeURIComponent(suggestion.modrinth_slug)}`);
+  } else if (slug && suggestion.modrinth_slug) {
+    history.replaceState(null, "", `/suggest/${encodeURIComponent(suggestion.modrinth_slug)}`);
+  }
   document.title = `${suggestion.title} — Suggest a Mod`;
   document.getElementById("detail-title").textContent = suggestion.title;
   renderSuggestion();
