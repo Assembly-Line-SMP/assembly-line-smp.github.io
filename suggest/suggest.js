@@ -176,6 +176,10 @@ async function submitSuggestion(hit) {
   if (!requireLogin()) return;
   const suggestionReason = window.prompt("Why would you like this mod? (optional)", "");
   if (suggestionReason === null) return;
+  const category = window.prompt("Category (optional: QoL, utility, content, performance, visuals)", "");
+  if (category === null) return;
+  const compatibility = window.prompt("Compatibility notes (optional: client/server, conflicts, dependencies)", "");
+  if (compatibility === null) return;
 
   try {
     const res = await fetch(`${API_BASE}/suggestions`, {
@@ -188,6 +192,8 @@ async function submitSuggestion(hit) {
         description: hit.description,
         icon_url: hit.icon_url,
         suggestion_reason: suggestionReason.trim(),
+        category: category.trim(),
+        compatibility: compatibility.trim(),
       }),
     });
 
@@ -241,6 +247,7 @@ async function loadSuggestions() {
 
 function renderSuggestions() {
   let items = [...suggestionsCache];
+  items.sort((a, b) => Number(!!b.pinned) - Number(!!a.pinned));
 
   if (currentSort === "top") {
     items = items.filter((s) => getSuggestionStatus(s) !== "rejected");
@@ -308,6 +315,8 @@ function renderSuggestionCard(s) {
         : escapeHtml(s.suggested_by || "someone")}</p>
       ${s.suggestion_reason ? `<p class="suggestion-card__reason"><strong>Why:</strong> ${escapeHtml(s.suggestion_reason)}</p>` : ""}
       ${status === "rejected" && s.rejection_reason ? `<p class="suggestion-card__reason suggestion-card__reason--rejection"><strong>Rejected:</strong> ${escapeHtml(s.rejection_reason)}</p>` : ""}
+      ${s.category ? `<p class="suggestion-card__reason"><strong>Category:</strong> ${escapeHtml(s.category)}</p>` : ""}
+      ${s.compatibility ? `<p class="suggestion-card__reason"><strong>Compatibility:</strong> ${escapeHtml(s.compatibility)}</p>` : ""}
     </div>
     <div class="vote-control">
       <button class="vote-up ${userVote === "up" ? "vote-active--up" : ""}" aria-label="Upvote" ${votingDisabled ? "disabled" : ""}>
@@ -592,8 +601,30 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+/* ---------- Announcements ---------- */
+async function loadAnnouncements() {
+  const section = document.getElementById("suggest-announcements");
+  try {
+    const res = await fetch(`${API_BASE}/announcements`, { credentials: "include" });
+    if (!res.ok) return;
+    const data = await res.json();
+    const announcements = (data.announcements || []).filter((item) => item.body);
+    if (!announcements.length) {
+      section.style.display = "none";
+      return;
+    }
+    section.innerHTML = announcements.map((item) =>
+      `<article>${item.pinned ? `<span>PINNED</span>` : ""}<p>${escapeHtml(item.body)}</p></article>`
+    ).join("");
+    section.style.display = "grid";
+  } catch {
+    section.style.display = "none";
+  }
+}
+
 /* ---------- Init ---------- */
 (async function init() {
   await loadAuthState();
   await loadSuggestions();
+  await loadAnnouncements();
 })();

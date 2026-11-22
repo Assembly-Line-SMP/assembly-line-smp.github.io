@@ -117,6 +117,21 @@
       </div>
     </section>
 
+    <section class="admin-settings">
+      <div class="admin-settings__row">
+        <div>
+          <h3>Announcements</h3>
+          <p class="suggest-header__subtitle">Post a pinned or regular community update.</p>
+        </div>
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;">
+          <input id="announcement-pinned" type="checkbox" /> Pinned
+        </label>
+      </div>
+      <textarea id="announcement-body" rows="3" placeholder="Announcement text" style="width:100%;margin-top:10px;border-radius:12px;padding:10px;background:var(--md-sys-color-surface-container-high);color:var(--md-sys-color-on-surface);border:1px solid var(--md-sys-color-outline-variant);"></textarea>
+      <button id="announcement-save" class="admin-button admin-button--small" style="margin-top:8px;">Post announcement</button>
+      <div id="admin-announcements" class="admin-announcements-list"></div>
+    </section>
+
     <section class="suggest-list-section admin-reports-section">
       <div class="suggest-list-section__head">
         <div>
