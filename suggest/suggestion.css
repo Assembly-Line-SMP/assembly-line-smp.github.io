@@ -1,0 +1,121 @@
+.suggestion-detail-app {
+  max-width: 760px;
+}
+
+.suggestion-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  color: var(--md-sys-color-primary);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.suggestion-detail-card {
+  background: var(--md-sys-color-surface-container-lowest);
+  border-radius: var(--md-corner-extra-large);
+  padding: 20px;
+}
+
+.suggestion-detail-head {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+}
+
+.suggestion-detail-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  object-fit: cover;
+  background: var(--md-sys-color-surface-container-high);
+}
+
+.suggestion-detail-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+}
+
+.suggestion-detail-meta {
+  margin: 5px 0 0;
+  color: var(--md-sys-color-on-surface-variant);
+  font-size: 13px;
+}
+
+.suggestion-detail-description,
+.suggestion-detail-section {
+  margin-top: 16px;
+  color: var(--md-sys-color-on-surface);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.suggestion-detail-section h2 {
+  margin: 0 0 6px;
+  font-family: var(--font-display);
+  font-size: 16px;
+}
+
+.suggestion-detail-actions,
+.suggestion-detail-reactions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.suggestion-detail-actions a,
+.suggestion-detail-actions button,
+.suggestion-detail-reactions button {
+  min-height: 38px;
+  border: 1px solid var(--md-sys-color-outline-variant);
+  border-radius: 100px;
+  padding: 8px 14px;
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  text-decoration: none;
+  font: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.suggestion-detail-actions .primary {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border: 0;
+}
+
+.suggestion-detail-reactions button.is-active {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+  border-color: transparent;
+}
+
+.suggestion-detail-discussion {
+  margin-top: 18px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+  padding-top: 14px;
+}
+
+@media (max-width: 680px) {
+  .suggestion-detail-head {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .suggestion-detail-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .suggestion-detail-head .vote-control {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

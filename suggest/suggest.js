@@ -277,29 +277,14 @@ function renderSuggestionCard(s) {
   card.className = "suggestion-card";
   const status = getSuggestionStatus(s);
   if (status === "rejected") card.classList.add("suggestion-card--rejected");
-  if (s.modrinth_slug){
-    card.addEventListener("click", (event) => {
-      if (event.target.closest(".vote-control")) return; // don't navigate if clicking on vote buttons
-      window.open(`https://modrinth.com/mod/${s.modrinth_slug}`, "_blank");
-    });
-  }
-  
-  card.style.cursor = s.modrinth_slug ? "pointer" : "default";
+  card.style.cursor = "pointer";
+  card.addEventListener("click", (event) => {
+    if (event.target.closest(".vote-control")) return;
+    window.location.href = `./suggestion.html?id=${encodeURIComponent(s.id)}`;
+  });
 
   const net = s.upvotes - s.downvotes;
   const userVote = s.your_vote; // "up" | "down" | null
-  const eligible = status === "pending" && net >= publicThreshold;
-  const nextUpdate = s.next_update_date || s.approved_for_date || publicNextUpdate;
-  const approvedTooltip = nextUpdate
-    ? `Coming ${formatUpdateDate(nextUpdate)}`
-    : "Approved — update date pending";
-  const badge = status === "rejected"
-    ? `<span class="suggestion-card__badge suggestion-card__badge--rejected">Rejected</span>`
-    : status === "approved"
-      ? `<span class="suggestion-card__badge suggestion-card__badge--approved" title="${escapeHtml(approvedTooltip)}">Approved</span>`
-      : eligible
-        ? `<span class="suggestion-card__badge suggestion-card__badge--eligible">Ready to approve</span>`
-        : "";
   const votingDisabled = status === "rejected" || status === "approved";
 
   card.innerHTML = `
@@ -307,16 +292,9 @@ function renderSuggestionCard(s) {
     <div class="suggestion-card__body">
       <div class="suggestion-card__title-row">
         <p class="suggestion-card__title">${escapeHtml(s.title)}</p>
-        ${badge}
       </div>
       <p class="suggestion-card__desc">${escapeHtml(s.description || "")}</p>
-      <p class="suggestion-card__meta">Suggested by ${s.suggested_by_discord_id
-        ? `<button type="button" class="suggestion-author" data-discord-id="${escapeHtml(s.suggested_by_discord_id)}">${escapeHtml(s.suggested_by || "someone")}</button>`
-        : escapeHtml(s.suggested_by || "someone")}</p>
-      ${s.suggestion_reason ? `<p class="suggestion-card__reason"><strong>Why:</strong> ${escapeHtml(s.suggestion_reason)}</p>` : ""}
-      ${status === "rejected" && s.rejection_reason ? `<p class="suggestion-card__reason suggestion-card__reason--rejection"><strong>Rejected:</strong> ${escapeHtml(s.rejection_reason)}</p>` : ""}
-      ${s.category ? `<p class="suggestion-card__reason"><strong>Category:</strong> ${escapeHtml(s.category)}</p>` : ""}
-      ${s.compatibility ? `<p class="suggestion-card__reason"><strong>Compatibility:</strong> ${escapeHtml(s.compatibility)}</p>` : ""}
+      <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")}</p>
     </div>
     <div class="vote-control">
       <button class="vote-up ${userVote === "up" ? "vote-active--up" : ""}" aria-label="Upvote" ${votingDisabled ? "disabled" : ""}>
@@ -328,87 +306,6 @@ function renderSuggestionCard(s) {
       </button>
     </div>
   `;
-
-  const social = document.createElement("details");
-  social.className = "suggestion-social";
-  social.innerHTML = `
-    <summary>Discussion</summary>
-    <div class="suggestion-comments"></div>
-  `;
-  social.addEventListener("toggle", (event) => {
-    if (event.currentTarget.open) loadComments(s.id, social);
-  });
-  card.appendChild(social);
-
-  const socialActions = document.createElement("div");
-  socialActions.className = "suggestion-social-actions";
-  socialActions.innerHTML = `
-    ${currentUser ? `<button type="button" class="suggestion-watch" title="Watch for status updates"><span class="material-symbols-rounded">notifications</span></button>` : ""}
-    ${currentUser ? `<button type="button" class="suggestion-reaction" data-emoji="👍" title="React thumbs up">👍</button><button type="button" class="suggestion-reaction" data-emoji="❤️" title="React heart">❤️</button>` : ""}
-  `;
-  const watchButton = socialActions.querySelector(".suggestion-watch");
-  if (watchButton) {
-    watchButton.addEventListener("click", async (event) => {
-      event.stopPropagation();
-      const watching = watchButton.classList.toggle("is-active");
-      const res = await fetch(`${API_BASE}/suggestions/${s.id}/watch`, {
-        method: watching ? "POST" : "DELETE",
-        credentials: "include",
-      });
-      if (!res.ok) {
-        watchButton.classList.toggle("is-active", !watching);
-        showToast("Couldn't update watch status.");
-      } else {
-        showToast(watching ? "You’re watching this suggestion." : "Watch removed.");
-      }
-    });
-  }
-  socialActions.querySelectorAll(".suggestion-reaction").forEach((button) => {
-    button.addEventListener("click", async (event) => {
-      event.stopPropagation();
-      const res = await fetch(`${API_BASE}/suggestions/${s.id}/reactions`, {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ emoji: button.dataset.emoji }),
-      });
-      if (res.ok) {
-        button.classList.toggle("is-active");
-        showToast("Reaction updated.");
-      } else {
-        showToast("Couldn't update reaction.");
-      }
-    });
-  });
-  card.appendChild(socialActions);
-
-  card.querySelectorAll(".suggestion-author").forEach((button) => {
-    button.addEventListener("click", async (event) => {
-      event.stopPropagation();
-      const res = await fetch(`${API_BASE}/users/${encodeURIComponent(button.dataset.discordId)}`);
-      if (!res.ok) return showToast("Couldn't load profile.");
-      const profile = await res.json();
-      showToast(`${profile.username} · ${profile.suggestion_count} suggestions · ${profile.approved_count} approved · ${profile.vote_count} votes${profile.badges.length ? ` · ${profile.badges.join(", ")}` : ""}`);
-    });
-  });
-
-  const shareButton = document.createElement("button");
-  shareButton.className = "suggestion-share";
-  shareButton.type = "button";
-  shareButton.title = "Copy suggestion link";
-  shareButton.innerHTML = `<span class="material-symbols-rounded">share</span>`;
-  shareButton.addEventListener("click", async (event) => {
-    event.stopPropagation();
-    const url = new URL(window.location.href);
-    url.hash = `suggestion-${s.id}`;
-    try {
-      await navigator.clipboard.writeText(url.toString());
-      showToast("Suggestion link copied.");
-    } catch {
-      showToast("Couldn't copy the link.");
-    }
-  });
-  card.querySelector(".suggestion-card__body").appendChild(shareButton);
 
   card.querySelector(".vote-up").addEventListener("click", () => castVote(s.id, "up"));
   card.querySelector(".vote-down").addEventListener("click", () => castVote(s.id, "down"));

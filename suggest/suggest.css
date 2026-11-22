@@ -249,7 +249,7 @@
 .suggestion-card {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 16px;
   background: var(--md-sys-color-surface-container-lowest);
   border-radius: var(--md-corner-extra-large);
