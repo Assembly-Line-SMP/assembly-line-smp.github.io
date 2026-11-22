@@ -176,10 +176,7 @@ async function submitSuggestion(hit) {
   if (!requireLogin()) return;
   const suggestionReason = window.prompt("Why would you like this mod? (optional)", "");
   if (suggestionReason === null) return;
-  const category = window.prompt("Category (optional: QoL, utility, content, performance, visuals)", "");
-  if (category === null) return;
-  const compatibility = window.prompt("Compatibility notes (optional: client/server, conflicts, dependencies)", "");
-  if (compatibility === null) return;
+  const compatibility = hit.compatibility || "Unknown";
 
   try {
     const res = await fetch(`${API_BASE}/suggestions`, {
@@ -192,8 +189,7 @@ async function submitSuggestion(hit) {
         description: hit.description,
         icon_url: hit.icon_url,
         suggestion_reason: suggestionReason.trim(),
-        category: category.trim(),
-        compatibility: compatibility.trim(),
+        compatibility,
       }),
     });
 

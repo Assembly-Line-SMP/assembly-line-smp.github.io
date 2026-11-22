@@ -394,13 +394,11 @@ function renderAdminCard(s) {
         <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")} · ${s.upvotes}↑ ${s.downvotes}↓ (net ${net})</p>
         ${s.suggestion_reason ? `<p class="suggestion-card__reason"><strong>Why:</strong> ${escapeHtml(s.suggestion_reason)}</p>` : ""}
         ${status === "rejected" && s.rejection_reason ? `<p class="suggestion-card__reason suggestion-card__reason--rejection"><strong>Rejected:</strong> ${escapeHtml(s.rejection_reason)}</p>` : ""}
-        ${s.category ? `<p class="suggestion-card__reason"><strong>Category:</strong> ${escapeHtml(s.category)}</p>` : ""}
-        ${s.compatibility ? `<p class="suggestion-card__reason"><strong>Compatibility:</strong> ${escapeHtml(s.compatibility)}</p>` : ""}
+        ${s.compatibility ? `<p class="suggestion-card__reason"><strong>Side:</strong> ${escapeHtml(s.compatibility)}</p>` : ""}
       </div>
       <div class="admin-card-actions">
         ${status !== "approved" ? `<button class="admin-approve" title="Approve suggestion" aria-label="Approve suggestion"><span class="material-symbols-rounded">check</span></button>` : `<button class="admin-unapprove" title="Revert to pending" aria-label="Revert to pending"><span class="material-symbols-rounded">undo</span></button>`}
         ${status !== "rejected" ? `<button class="admin-reject" title="Reject suggestion" aria-label="Reject suggestion"><span class="material-symbols-rounded">block</span></button>` : `<button class="admin-unreject" title="Restore suggestion" aria-label="Restore suggestion"><span class="material-symbols-rounded">restore</span></button>`}
-        <button class="admin-edit-meta" title="Edit category, compatibility, and internal notes" aria-label="Edit metadata"><span class="material-symbols-rounded">tune</span></button>
         <button class="admin-pin" title="${s.pinned ? "Unpin suggestion" : "Pin suggestion"}" aria-label="${s.pinned ? "Unpin suggestion" : "Pin suggestion"}"><span class="material-symbols-rounded">${s.pinned ? "keep_off" : "push_pin"}</span></button>
         <button class="admin-delete" title="Delete suggestion" aria-label="Delete suggestion"><span class="material-symbols-rounded">delete</span></button>
       </div>
@@ -415,7 +413,6 @@ function renderAdminCard(s) {
   if (rejectBtn) rejectBtn.addEventListener("click", () => setStatus(s.id, "rejected"));
   const unrejectBtn = card.querySelector(".admin-unreject");
   if (unrejectBtn) unrejectBtn.addEventListener("click", () => setStatus(s.id, "pending"));
-  card.querySelector(".admin-edit-meta").addEventListener("click", () => editSuggestionMetadata(s));
   card.querySelector(".admin-pin").addEventListener("click", () => setPinned(s.id, !s.pinned));
   card.querySelector(".admin-delete").addEventListener("click", () => deleteSuggestion(s.id));
 
@@ -580,26 +577,6 @@ function getAdminSuggestionStatus(suggestion) {
   if (suggestion.rejected) return "rejected";
   if (suggestion.approved || suggestion.added) return "approved";
   return "pending";
-}
-
-async function editSuggestionMetadata(suggestion) {
-  const category = window.prompt("Category", suggestion.category || "");
-  if (category === null) return;
-  const compatibility = window.prompt("Compatibility notes", suggestion.compatibility || "");
-  if (compatibility === null) return;
-  const internalNotes = window.prompt("Private admin notes", suggestion.internal_notes || "");
-  if (internalNotes === null) return;
-  const res = await fetch(`${API_BASE}/admin/suggestions/${suggestion.id}`, {
-    method: "PATCH",
-    headers: { ...authHeaders(), "Content-Type": "application/json" },
-    body: JSON.stringify({
-      category: category.trim(),
-      compatibility: compatibility.trim(),
-      internal_notes: internalNotes.trim(),
-    }),
-  });
-  showToast(res.ok ? "Metadata updated." : "Couldn't update metadata.");
-  if (res.ok) await loadAdminList();
 }
 
 async function setPinned(id, pinned) {

@@ -104,8 +104,7 @@ function renderSuggestion() {
       </div>
       ${suggestion.description ? `<p class="suggestion-detail-description">${escapeHtml(suggestion.description)}</p>` : ""}
       ${suggestion.suggestion_reason ? `<section class="suggestion-detail-section"><h2>Why this mod?</h2><p>${escapeHtml(suggestion.suggestion_reason)}</p></section>` : ""}
-      ${suggestion.category ? `<section class="suggestion-detail-section"><h2>Category</h2><p>${escapeHtml(suggestion.category)}</p></section>` : ""}
-      ${suggestion.compatibility ? `<section class="suggestion-detail-section"><h2>Compatibility</h2><p>${escapeHtml(suggestion.compatibility)}</p></section>` : ""}
+      ${suggestion.compatibility ? `<section class="suggestion-detail-section"><h2>Side</h2><p>${escapeHtml(suggestion.compatibility)}</p></section>` : ""}
       ${status === "rejected" && suggestion.rejection_reason ? `<section class="suggestion-detail-section"><h2>Rejection reason</h2><p>${escapeHtml(suggestion.rejection_reason)}</p></section>` : ""}
       ${status === "approved" ? `<section class="suggestion-detail-section"><h2>Update</h2><p>${suggestion.next_update_date ? `Coming ${escapeHtml(new Date(suggestion.next_update_date).toLocaleString())}` : "Update date pending"}</p></section>` : ""}
       <div class="suggestion-detail-actions">
