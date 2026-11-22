@@ -210,6 +210,9 @@ class LiveChatHandler(http.server.SimpleHTTPRequestHandler):
             self.send_error(403, "Forbidden")
             return
 
+        if target_path.is_dir():
+            target_path = target_path / "index.html"
+
         if not target_path.exists() or not target_path.is_file():
             self.send_error(404, "File not found")
             return

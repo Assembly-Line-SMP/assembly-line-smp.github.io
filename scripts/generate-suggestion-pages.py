@@ -35,6 +35,13 @@ for suggestion in suggestions:
     if not slug:
         continue
 
+    flat_file = OUTPUT_DIR / slug
+    if flat_file.is_file():
+        flat_file.unlink()
+
+    page_dir = OUTPUT_DIR / slug
+    page_dir.mkdir(parents=True, exist_ok=True)
+
     title = suggestion.get("title") or slug
     description = suggestion.get("description") or "View this mod suggestion from Assembly Line SMP."
     icon = suggestion.get("icon_url") or ""
@@ -68,6 +75,6 @@ window.location.replace("/suggest/suggestion.html?slug={escape(slug)}");
 </body>
 </html>
 """
-    (OUTPUT_DIR / slug).write_text(page, encoding="utf-8")
+    (page_dir / "index.html").write_text(page, encoding="utf-8")
 
 print(f"Generated {len(suggestions)} suggestion social pages")
