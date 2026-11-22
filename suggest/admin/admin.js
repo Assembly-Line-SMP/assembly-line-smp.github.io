@@ -155,12 +155,23 @@ syncModsManualBtn.addEventListener("click", () => {
 /* ---------- Threshold ---------- */
 const thresholdInput = document.getElementById("threshold-input");
 const thresholdSaveBtn = document.getElementById("threshold-save-btn");
+const nextUpdateInput = document.getElementById("next-update-input");
+let adminThreshold = 10;
 
 async function loadThreshold() {
   const res = await fetch(`${API_BASE}/admin/settings`, { headers: authHeaders() });
   if (!res.ok) return;
   const data = await res.json();
   thresholdInput.value = data.auto_add_threshold;
+  adminThreshold = Number(data.auto_add_threshold || 10);
+  if (adminCache.length) renderAdminList();
+  if (data.next_update_date) {
+    const date = new Date(data.next_update_date);
+    if (!Number.isNaN(date.getTime())) {
+      const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+      nextUpdateInput.value = local.toISOString().slice(0, 16);
+    }
+  }
 }
 
 thresholdSaveBtn.addEventListener("click", async () => {
@@ -169,12 +180,26 @@ thresholdSaveBtn.addEventListener("click", async () => {
     showToast("Enter a valid threshold.");
     return;
   }
+  let nextUpdateDate = "";
+  if (nextUpdateInput.value) {
+    const date = new Date(nextUpdateInput.value);
+    if (Number.isNaN(date.getTime())) {
+      showToast("Enter a valid next update date.");
+      return;
+    }
+    nextUpdateDate = date.toISOString();
+  }
   const res = await fetch(`${API_BASE}/admin/settings`, {
     method: "POST",
     headers: { ...authHeaders(), "Content-Type": "application/json" },
-    body: JSON.stringify({ auto_add_threshold: value }),
+    body: JSON.stringify({ auto_add_threshold: value, next_update_date: nextUpdateDate }),
   });
-  showToast(res.ok ? "Threshold saved." : "Couldn't save threshold.");
+  if (res.ok) {
+    showToast("Approval settings saved.");
+    await loadThreshold();
+  } else {
+    showToast("Couldn't save approval settings.");
+  }
 });
 
 /* ---------- User moderation ---------- */
@@ -329,8 +354,12 @@ function renderAdminList() {
   let items = adminCache.filter((suggestion) =>
     `${suggestion.title} ${suggestion.suggested_by} ${suggestion.modrinth_slug}`.toLowerCase().includes(query)
   );
-  if (currentFilter === "pending") items = items.filter((s) => !s.added);
-  if (currentFilter === "added") items = items.filter((s) => s.added);
+  if (currentFilter === "pending") items = items.filter((s) => getAdminSuggestionStatus(s) === "pending");
+  if (currentFilter === "eligible") items = items.filter((s) =>
+    getAdminSuggestionStatus(s) === "pending" && (s.upvotes - s.downvotes) >= adminThreshold
+  );
+  if (currentFilter === "added") items = items.filter((s) => getAdminSuggestionStatus(s) === "approved");
+  if (currentFilter === "rejected") items = items.filter((s) => getAdminSuggestionStatus(s) === "rejected");
 
   const sortBy = suggestionSortSelect.value;
   items.sort((a, b) => {
@@ -352,6 +381,15 @@ function renderAdminCard(s) {
   const card = document.createElement("div");
   card.className = "suggestion-card admin-suggestion-card";
   const net = s.upvotes - s.downvotes;
+  const status = getAdminSuggestionStatus(s);
+  const eligible = status === "pending" && net >= adminThreshold;
+  const statusBadge = status === "approved"
+    ? `<span class="suggestion-card__badge suggestion-card__badge--approved">Approved</span>`
+    : status === "rejected"
+      ? `<span class="suggestion-card__badge suggestion-card__badge--rejected">Rejected</span>`
+      : eligible
+        ? `<span class="suggestion-card__badge suggestion-card__badge--eligible">Ready to approve</span>`
+        : "";
 
   card.innerHTML = `
     <div class="admin-suggestion-main">
@@ -359,13 +397,14 @@ function renderAdminCard(s) {
       <div class="suggestion-card__body">
         <div class="suggestion-card__title-row">
           <p class="suggestion-card__title">${escapeHtml(s.title)}</p>
-          ${s.added ? `<span class="suggestion-card__badge suggestion-card__badge--added">Added</span>` : ""}
+          ${statusBadge}
         </div>
         <p class="suggestion-card__desc">${escapeHtml(s.description || "")}</p>
         <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")} · ${s.upvotes}↑ ${s.downvotes}↓ (net ${net})</p>
       </div>
       <div class="admin-card-actions">
-        ${!s.added ? `<button class="admin-approve" title="Mark as added" aria-label="Mark as added"><span class="material-symbols-rounded">check</span></button>` : `<button class="admin-unapprove" title="Revert to pending" aria-label="Revert to pending"><span class="material-symbols-rounded">undo</span></button>`}
+        ${status !== "approved" ? `<button class="admin-approve" title="Approve suggestion" aria-label="Approve suggestion"><span class="material-symbols-rounded">check</span></button>` : `<button class="admin-unapprove" title="Revert to pending" aria-label="Revert to pending"><span class="material-symbols-rounded">undo</span></button>`}
+        ${status !== "rejected" ? `<button class="admin-reject" title="Reject suggestion" aria-label="Reject suggestion"><span class="material-symbols-rounded">block</span></button>` : `<button class="admin-unreject" title="Restore suggestion" aria-label="Restore suggestion"><span class="material-symbols-rounded">restore</span></button>`}
         <button class="admin-delete" title="Delete suggestion" aria-label="Delete suggestion"><span class="material-symbols-rounded">delete</span></button>
       </div>
     </div>
@@ -376,9 +415,13 @@ function renderAdminCard(s) {
   `;
 
   const approveBtn = card.querySelector(".admin-approve");
-  if (approveBtn) approveBtn.addEventListener("click", () => setAdded(s.id, true));
+  if (approveBtn) approveBtn.addEventListener("click", () => setStatus(s.id, "approved"));
   const unapproveBtn = card.querySelector(".admin-unapprove");
-  if (unapproveBtn) unapproveBtn.addEventListener("click", () => setAdded(s.id, false));
+  if (unapproveBtn) unapproveBtn.addEventListener("click", () => setStatus(s.id, "pending"));
+  const rejectBtn = card.querySelector(".admin-reject");
+  if (rejectBtn) rejectBtn.addEventListener("click", () => setStatus(s.id, "rejected"));
+  const unrejectBtn = card.querySelector(".admin-unreject");
+  if (unrejectBtn) unrejectBtn.addEventListener("click", () => setStatus(s.id, "pending"));
   card.querySelector(".admin-delete").addEventListener("click", () => deleteSuggestion(s.id));
 
   const voteDetails = card.querySelector(".admin-vote-manager");
@@ -423,14 +466,18 @@ function renderAdminCard(s) {
   return card;
 }
 
-async function setAdded(id, added) {
+async function setStatus(id, status) {
   const res = await fetch(`${API_BASE}/admin/suggestions/${id}`, {
     method: "PATCH",
     headers: { ...authHeaders(), "Content-Type": "application/json" },
-    body: JSON.stringify({ added }),
+    body: JSON.stringify({ status }),
   });
   if (res.ok) {
-    showToast(added ? "Marked as added." : "Reverted to pending.");
+    showToast(status === "approved"
+      ? "Suggestion approved."
+      : status === "rejected"
+        ? "Suggestion rejected."
+        : "Suggestion restored to pending.");
     await loadAdminList();
   } else {
     showToast("Action failed.");
@@ -449,6 +496,15 @@ async function deleteSuggestion(id) {
   } else {
     showToast("Delete failed.");
   }
+}
+
+function getAdminSuggestionStatus(suggestion) {
+  if (suggestion.status === "approved" || suggestion.status === "rejected" || suggestion.status === "pending") {
+    return suggestion.status;
+  }
+  if (suggestion.rejected) return "rejected";
+  if (suggestion.approved || suggestion.added) return "approved";
+  return "pending";
 }
 
 function escapeHtml(str) {

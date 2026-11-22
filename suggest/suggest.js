@@ -97,6 +97,9 @@ const searchInput = document.getElementById("search-input");
 const searchResultsEl = document.getElementById("search-results");
 let searchDebounce = null;
 let existingSlugs = new Set(); // filled in once suggestions load
+let existingSuggestions = new Map();
+let publicThreshold = 10;
+let publicNextUpdate = "";
 
 searchInput.addEventListener("input", () => {
   clearTimeout(searchDebounce);
@@ -144,6 +147,8 @@ function renderSearchResults(hits) {
   searchResultsEl.innerHTML = "";
   hits.forEach((hit) => {
     const alreadySuggested = existingSlugs.has(hit.slug);
+    const existing = existingSuggestions.get(hit.slug);
+    const existingStatus = existing ? getSuggestionStatus(existing) : null;
     const alreadyInPack = !!hit.already_in_pack;
     const blocked = alreadySuggested || alreadyInPack;
 
@@ -156,7 +161,8 @@ function renderSearchResults(hits) {
         <div class="search-result__desc">${escapeHtml(hit.description || "")}</div>
       </div>
       ${alreadyInPack ? `<span class="search-result__already">Already in modpack</span>` : ""}
-      ${!alreadyInPack && alreadySuggested ? `<span class="search-result__already">Already suggested</span>` : ""}
+      ${!alreadyInPack && existingStatus === "rejected" ? `<span class="search-result__already">Rejected — cannot suggest again</span>` : ""}
+      ${!alreadyInPack && alreadySuggested && existingStatus !== "rejected" ? `<span class="search-result__already">Already suggested</span>` : ""}
     `;
     if (!blocked) {
       row.addEventListener("click", () => submitSuggestion(hit));
@@ -220,7 +226,10 @@ async function loadSuggestions() {
     if (!res.ok) throw new Error("load failed");
     const data = await res.json();
     suggestionsCache = data.suggestions || [];
-    existingSlugs = new Set(suggestionsCache.map((s) => s.modrinth_slug));
+    publicThreshold = Number(data.auto_add_threshold || data.threshold || data.vote_threshold || 10);
+    publicNextUpdate = data.next_update_date || data.next_update || "";
+    existingSlugs = new Set(suggestionsCache.map((s) => s.modrinth_slug).filter(Boolean));
+    existingSuggestions = new Map(suggestionsCache.map((s) => [s.modrinth_slug, s]).filter(([slug]) => slug));
     renderSuggestions();
   } catch {
     suggestionsListEl.innerHTML = `<p class="suggest-empty">Couldn't load suggestions. Try refreshing.</p>`;
@@ -231,12 +240,17 @@ function renderSuggestions() {
   let items = [...suggestionsCache];
 
   if (currentSort === "top") {
+    items = items.filter((s) => getSuggestionStatus(s) !== "rejected");
     items.sort((a, b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes));
   } else if (currentSort === "new") {
+    items = items.filter((s) => getSuggestionStatus(s) !== "rejected");
     items.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  } else if (currentSort === "added") {
-    items = items.filter((s) => s.added);
+  } else if (currentSort === "approved") {
+    items = items.filter((s) => getSuggestionStatus(s) === "approved");
     items.sort((a, b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes));
+  } else if (currentSort === "rejected") {
+    items = items.filter((s) => getSuggestionStatus(s) === "rejected");
+    items.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   }
 
   if (items.length === 0) {
@@ -251,6 +265,8 @@ function renderSuggestions() {
 function renderSuggestionCard(s) {
   const card = document.createElement("div");
   card.className = "suggestion-card";
+  const status = getSuggestionStatus(s);
+  if (status === "rejected") card.classList.add("suggestion-card--rejected");
   if (s.modrinth_slug){
     card.addEventListener("click", (event) => {
       if (event.target.closest(".vote-control")) return; // don't navigate if clicking on vote buttons
@@ -260,26 +276,38 @@ function renderSuggestionCard(s) {
   
   card.style.cursor = s.modrinth_slug ? "pointer" : "default";
 
-  console.log(s);
   const net = s.upvotes - s.downvotes;
   const userVote = s.your_vote; // "up" | "down" | null
+  const eligible = status === "pending" && net >= publicThreshold;
+  const nextUpdate = s.next_update_date || s.approved_for_date || publicNextUpdate;
+  const approvedTooltip = nextUpdate
+    ? `Coming ${formatUpdateDate(nextUpdate)}`
+    : "Approved — update date pending";
+  const badge = status === "rejected"
+    ? `<span class="suggestion-card__badge suggestion-card__badge--rejected">Rejected</span>`
+    : status === "approved"
+      ? `<span class="suggestion-card__badge suggestion-card__badge--approved" title="${escapeHtml(approvedTooltip)}">Approved</span>`
+      : eligible
+        ? `<span class="suggestion-card__badge suggestion-card__badge--eligible">Ready to approve</span>`
+        : "";
+  const votingDisabled = status === "rejected" || status === "approved";
 
   card.innerHTML = `
     <img class="suggestion-card__icon" src="${s.icon_url || ""}" alt="" onerror="this.style.visibility='hidden'" />
     <div class="suggestion-card__body">
       <div class="suggestion-card__title-row">
         <p class="suggestion-card__title">${escapeHtml(s.title)}</p>
-        ${s.added ? `<span class="suggestion-card__badge suggestion-card__badge--added">To be added</span>` : ""}
+        ${badge}
       </div>
       <p class="suggestion-card__desc">${escapeHtml(s.description || "")}</p>
       <p class="suggestion-card__meta">Suggested by ${escapeHtml(s.suggested_by || "someone")}</p>
     </div>
     <div class="vote-control">
-      <button class="vote-up ${userVote === "up" ? "vote-active--up" : ""}" aria-label="Upvote">
+      <button class="vote-up ${userVote === "up" ? "vote-active--up" : ""}" aria-label="Upvote" ${votingDisabled ? "disabled" : ""}>
         <span class="material-symbols-rounded">arrow_upward</span>
       </button>
       <span class="vote-control__count">${net}</span>
-      <button class="vote-down ${userVote === "down" ? "vote-active--down" : ""}" aria-label="Downvote">
+      <button class="vote-down ${userVote === "down" ? "vote-active--down" : ""}" aria-label="Downvote" ${votingDisabled ? "disabled" : ""}>
         <span class="material-symbols-rounded">arrow_downward</span>
       </button>
     </div>
@@ -293,6 +321,11 @@ function renderSuggestionCard(s) {
 
 async function castVote(suggestionId, direction) {
   if (!requireLogin()) return;
+  const suggestion = suggestionsCache.find((item) => item.id === suggestionId);
+  if (suggestion && ["approved", "rejected"].includes(getSuggestionStatus(suggestion))) {
+    showToast("Voting is closed for this suggestion.");
+    return;
+  }
 
   try {
     const res = await fetch(`${API_BASE}/suggestions/${suggestionId}/vote`, {
@@ -320,6 +353,27 @@ async function castVote(suggestionId, direction) {
 }
 
 /* ---------- Utility ---------- */
+function getSuggestionStatus(suggestion) {
+  if (suggestion.status === "approved" || suggestion.status === "rejected" || suggestion.status === "pending") {
+    return suggestion.status;
+  }
+  if (suggestion.rejected) return "rejected";
+  if (suggestion.approved || suggestion.added) return "approved";
+  return "pending";
+}
+
+function formatUpdateDate(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+}
+
 function escapeHtml(str) {
   const div = document.createElement("div");
   div.textContent = str || "";

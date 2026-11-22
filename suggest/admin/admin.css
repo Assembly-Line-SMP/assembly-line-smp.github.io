@@ -132,6 +132,12 @@
   color: #ffffff;
 }
 
+.admin-card-actions .admin-reject:hover,
+.admin-card-actions .admin-unreject:hover {
+  background: #b83227;
+  color: #ffffff;
+}
+
 .admin-toolbar {
   display: flex;
   align-items: center;

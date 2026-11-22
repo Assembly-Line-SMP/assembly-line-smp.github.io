@@ -287,6 +287,31 @@
   color: #ffffff;
 }
 
+.suggestion-card__badge--approved {
+  background: #1f7a3f;
+  color: #ffffff;
+  cursor: help;
+}
+
+.suggestion-card__badge--eligible {
+  background: #b7791f;
+  color: #ffffff;
+}
+
+.suggestion-card__badge--rejected {
+  background: #b83227;
+  color: #ffffff;
+}
+
+.suggestion-card--rejected {
+  opacity: 0.72;
+}
+
+.vote-control button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 .suggestion-card__desc {
   font-size: 13px;
   color: var(--md-sys-color-on-surface-variant);
